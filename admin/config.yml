@@ -2,6 +2,7 @@ backend:
   name: github
   repo: cauvangADMIN/ReplayGameNews
   branch: main
+  auth_endpoint: https://decap-cms-oauth.vercel.app/auth
 
 media_folder: "images"
 public_folder: "/images"
