@@ -3,11 +3,38 @@
 <head>
   <meta charset="utf-8" />
   <title>ReplayGameNews CMS</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- bắt buộc: cho phép init thủ công để ta điều khiển thời điểm mount -->
+  <script>window.CMS_MANUAL_INIT = true;</script>
+
+  <!-- stable release -->
+  <script src="https://unpkg.com/decap-cms@3.10.1/dist/decap-cms.js"></script>
 </head>
-
 <body>
+  <!-- root: OK nếu có, nhưng CMS sẽ mount vào body nếu không có -->
+  <div id="nc-root"></div>
+
+  <script>
+    // debug helpers
+    console.log('before CMS init, CMS object =', window.CMS);
+
+    document.addEventListener('DOMContentLoaded', function () {
+      try {
+        console.log('DOM ready — calling CMS.init()');
+        // init thủ công (CMS sẽ auto-load /admin/config.yml)
+        CMS.init();
+        console.log('CMS.init() returned');
+      } catch (e) {
+        console.error('CMS.init() threw', e);
+        // show a visible error on the page so you don't see blank
+        const p = document.createElement('pre');
+        p.style.color = 'red';
+        p.style.whiteSpace = 'pre-wrap';
+        p.textContent = 'CMS init error: ' + (e && e.stack ? e.stack : String(e));
+        document.body.appendChild(p);
+      }
+    });
+  </script>
 </body>
 </html>
