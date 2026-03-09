@@ -1,10 +1,26 @@
 [
   {
-    "title": "Vì sao Resident Evil thích khóa cửa bằng puzzle?",
+    "title": "ABC",
+    "slug": "abc",
+    "thumbnail": "",
+    "category": "",
+    "date": "",
+    "excerpt": ""
+  },
+  {
+    "title": "Vì sao Resident Evil thích khóa cửa bằng puzzle? ZZZZ",
     "slug": "resident-evil-puzzle",
     "thumbnail": "/images/sample-re.jpg",
     "category": "Lore",
     "date": "2026-03-06",
-    "excerpt": "Giải thích thiết kế level, pacing và gameplay loop..."
+    "excerpt": "Giải thích thiết kế level, pacing và gameplay loop khiến series"
+  },
+  {
+    "title": "Test",
+    "slug": "test",
+    "thumbnail": "",
+    "category": "",
+    "date": "",
+    "excerpt": ""
   }
 ]
