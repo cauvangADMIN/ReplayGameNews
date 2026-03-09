@@ -16,12 +16,45 @@
   <div id="nc-root"></div>
 
   <script>
+    CMS.registerMediaLibrary({
+      name: "custom",
+
+      async show({ value, config, handleInsert }) {
+
+        const input = document.createElement("input")
+        input.type = "file"
+        input.accept = "image/*"
+
+        input.onchange = async () => {
+
+          const file = input.files[0]
+
+          const form = new FormData()
+          form.append("file", file)
+
+          const res = await fetch("/api/upload", {
+            method: "POST",
+            body: form
+          })
+
+          const data = await res.json()
+
+          handleInsert(data.url)
+        }
+
+        input.click()
+      }
+    })
+    </script>
+
+  <script>
     // debug helpers
     console.log('before CMS init, CMS object =', window.CMS);
 
     document.addEventListener('DOMContentLoaded', function () {
       try {
         console.log('DOM ready — calling CMS.init()');
+        
         // init thủ công (CMS sẽ auto-load /admin/config.yml)
         CMS.init();
         console.log('CMS.init() returned');
