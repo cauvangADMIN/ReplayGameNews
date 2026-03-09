@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     <div class="hero-card small-list">
       ${side.map(s=>`
         <div class="card">
-          <a href="/${post.slug}" style="display:flex;gap:12px;text-decoration:none;color:inherit;padding:8px 0">
+          <a href="/${p.slug}" style="display:flex;gap:12px;text-decoration:none;color:inherit;padding:8px 0">
             <img src="${s.thumbnail}" style="width:140px;height:84px;object-fit:cover;border-radius:6px">
             <div>
               <div class="cat">${s.category||'Lore'}</div>
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   document.getElementById('main-grid').innerHTML = gridPosts.map(createCard).join('');
 
   // SIDEBAR trending list (top 6 titles)
-  const sideList = posts.slice(0,6).map(p=>`<li><a href="/${post.slug}">${p.title}</a></li>`).join('');
+  const sideList = posts.slice(0,6).map(p=>`<li><a href="/${p.slug}">${p.title}</a></li>`).join('');
   document.getElementById('sidebar-trending').innerHTML = sideList;
 
   // MORE section: older posts
