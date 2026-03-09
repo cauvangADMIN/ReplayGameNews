@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     <div class="hero-card small-list">
       ${side.map(s=>`
         <div class="card">
-          <a href="/${p.slug}" style="display:flex;gap:12px;text-decoration:none;color:inherit;padding:8px 0">
+          <a href="/${s.slug}" style="display:flex;gap:12px;text-decoration:none;color:inherit;padding:8px 0">
             <img src="${s.thumbnail}" style="width:140px;height:84px;object-fit:cover;border-radius:6px">
             <div>
               <div class="cat">${s.category||'Lore'}</div>
