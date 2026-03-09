@@ -4,64 +4,147 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title id="page-title">Post</title>
-  <link rel="stylesheet" href="styles/styles.css">
+
+  <link rel="stylesheet" href="/styles/styles.css">
+
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+
   <script>
-  // read ?slug=resident-evil-puzzle
-  function getQuery(name){
-    const url = new URL(location.href);
-    return url.searchParams.get(name);
+
+  // Get slug from query OR pretty URL
+  function getSlug(){
+
+    const url = new URL(location.href)
+
+    // Case 1: /post.html?slug=xxx
+    let slug = url.searchParams.get("slug")
+
+    // Case 2: /resident-evil-puzzle
+    if(!slug){
+      const path = location.pathname.split("/")
+      slug = path[path.length - 1]
+    }
+
+    return slug
   }
+
 
   async function loadPost(){
-    const slug = getQuery('slug');
-    if(!slug){ document.body.innerHTML = '<p>Missing slug</p>'; return; }
-    try{
-      const res = await fetch(`/posts/${slug}.md`);
-      if(!res.ok) { document.body.innerHTML = '<p>Post not found</p>'; return; }
-      const md = await res.text();
-      // parse front matter lightly
-      const fmMatch = md.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-      let meta = {}, content = md;
-      if(fmMatch){
-        const fm = fmMatch[1];
-        content = fmMatch[2];
-        fm.split('\n').forEach(line=>{
-          const [k,...rest]=line.split(':');
-          if(k && rest) meta[k.trim()] = rest.join(':').trim();
-        });
-      }
-      document.getElementById('page-title').innerText = meta.title || slug;
-      document.getElementById('post-title').innerText = meta.title || slug;
-      if(meta.thumbnail){
-        document.getElementById('post-thumb').src = meta.thumbnail;
-      } else {
-        document.getElementById('post-thumb').style.display='none';
-      }
-      document.getElementById('post-meta').innerText = `${meta.date||''} • ${meta.category||''}`;
-      document.getElementById('post-content').innerHTML = marked.parse(content);
-    }catch(e){
-      console.error(e);
-      document.body.innerHTML = '<p>Error loading post</p>';
+
+    const slug = getSlug()
+
+    if(!slug){
+      document.body.innerHTML = "<p>Missing slug</p>"
+      return
     }
+
+    try{
+
+      const res = await fetch(`/posts/${slug}.md`, { cache:"no-store" })
+
+      if(!res.ok){
+        document.body.innerHTML = "<p>Post not found</p>"
+        return
+      }
+
+      const md = await res.text()
+
+      // Parse frontmatter
+      const fmMatch = md.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/)
+
+      let meta = {}
+      let content = md
+
+      if(fmMatch){
+
+        const fm = fmMatch[1]
+        content = fmMatch[2]
+
+        fm.split("\n").forEach(line=>{
+
+          const [k,...rest] = line.split(":")
+
+          if(k && rest){
+            meta[k.trim()] = rest.join(":").trim()
+          }
+
+        })
+
+      }
+
+      // Title
+      document.getElementById("page-title").innerText = meta.title || slug
+      document.getElementById("post-title").innerText = meta.title || slug
+
+      // Thumbnail
+      if(meta.thumbnail){
+
+        document.getElementById("post-thumb").src = meta.thumbnail
+
+      } else {
+
+        document.getElementById("post-thumb").style.display = "none"
+
+      }
+
+      // Meta
+      document.getElementById("post-meta").innerText =
+        `${meta.date || ""} • ${meta.category || ""}`
+
+      // Content
+      document.getElementById("post-content").innerHTML =
+        marked.parse(content)
+
+    }
+    catch(e){
+
+      console.error(e)
+      document.body.innerHTML = "<p>Error loading post</p>"
+
+    }
+
   }
 
-  document.addEventListener('DOMContentLoaded', loadPost);
+  document.addEventListener("DOMContentLoaded", loadPost)
+
   </script>
+
 </head>
+
+
 <body>
-  <header class="site-header container"><a class="logo" href="/">GameLore</a></header>
 
-  <main class="container post-container">
-    <article class="post">
-      <h1 id="post-title">...</h1>
-      <img id="post-thumb" alt="thumbnail" style="width:100%;max-height:420px;object-fit:cover;margin:12px 0;">
-      <div class="meta" id="post-meta"></div>
-      <div id="post-content" class="post-body"></div>
-    </article>
-  </main>
+<header class="site-header container">
+  <a class="logo" href="/">GameLore</a>
+</header>
 
-  <footer class="site-footer container">© <span id="year2"></span> GameLore</footer>
-  <script>document.getElementById('year2').innerText=new Date().getFullYear()</script>
+
+<main class="container post-container">
+
+  <article class="post">
+
+    <h1 id="post-title">...</h1>
+
+    <img id="post-thumb"
+         alt="thumbnail"
+         style="width:100%;max-height:420px;object-fit:cover;margin:12px 0;">
+
+    <div class="meta" id="post-meta"></div>
+
+    <div id="post-content" class="post-body"></div>
+
+  </article>
+
+</main>
+
+
+<footer class="site-footer container">
+  © <span id="year2"></span> GameLore
+</footer>
+
+<script>
+document.getElementById("year2").innerText = new Date().getFullYear()
+</script>
+
 </body>
 </html>
