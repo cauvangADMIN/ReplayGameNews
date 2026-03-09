@@ -7,5 +7,6 @@ thumbnail: /images/sample-re.jpg
 excerpt: Giải thích thiết kế level, pacing và gameplay loop khiến series
   Resident Evil đặt các đồ vật/khóa cửa theo kiểu puzzle.
 ---
-
 Resident Evil uses locking puzzles to control pacing, increase tension, and gate player progress...
+
+![](/images/ảnh-màn-hình-2026-03-06-lúc-09.05.10.jpg)
