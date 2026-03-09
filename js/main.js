@@ -10,7 +10,7 @@ async function fetchPosts(){
 function createCard(post){
   return `
   <article class="card">
-    <a href="/post.html?slug=${post.slug}" style="text-decoration:none;color:inherit">
+    <a href="/${post.slug}" style="text-decoration:none;color:inherit">
       <img src="${post.thumbnail}" alt="${post.title}">
       <div class="card-body">
         <div class="cat">${post.category || 'Lore'}</div>
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
   const heroHtml = `
     <div class="hero-card">
-      <a href="/post.html?slug=${hero.slug}" style="text-decoration:none;color:inherit">
+      <a href="/${hero.slug}" style="text-decoration:none;color:inherit">
         <img src="${hero.thumbnail}" alt="${hero.title}">
         <h1 style="margin:12px 0 0">${hero.title}</h1>
         <p style="color:#666;margin-top:8px">${hero.excerpt || ''}</p>
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     <div class="hero-card small-list">
       ${side.map(s=>`
         <div class="card">
-          <a href="/post.html?slug=${s.slug}" style="display:flex;gap:12px;text-decoration:none;color:inherit;padding:8px 0">
+          <a href="/${post.slug}" style="display:flex;gap:12px;text-decoration:none;color:inherit;padding:8px 0">
             <img src="${s.thumbnail}" style="width:140px;height:84px;object-fit:cover;border-radius:6px">
             <div>
               <div class="cat">${s.category||'Lore'}</div>
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   document.getElementById('main-grid').innerHTML = gridPosts.map(createCard).join('');
 
   // SIDEBAR trending list (top 6 titles)
-  const sideList = posts.slice(0,6).map(p=>`<li><a href="/post.html?slug=${p.slug}">${p.title}</a></li>`).join('');
+  const sideList = posts.slice(0,6).map(p=>`<li><a href="/${post.slug}">${p.title}</a></li>`).join('');
   document.getElementById('sidebar-trending').innerHTML = sideList;
 
   // MORE section: older posts
