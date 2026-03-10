@@ -7,6 +7,12 @@
   <title>ReplayGameNews CMS</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
+  <!-- prevent auto init -->
+
+  <script>
+    window.CMS_MANUAL_INIT = true
+  </script>
+
   <script src="https://unpkg.com/decap-cms@3.10.1/dist/decap-cms.js"></script>
 
   <style>
@@ -51,7 +57,7 @@
 
   <script>
 
-    /* upload file to R2 */
+    /* upload to R2 */
     async function uploadToR2(file) {
 
       const form = new FormData()
@@ -66,7 +72,7 @@
     }
 
 
-    /* open gallery */
+    /* gallery picker */
     async function openGallery(handleInsert) {
 
       const res = await fetch("/api/list-images")
@@ -93,11 +99,8 @@
 
       })
 
-      /* upload button */
-
       const upload = document.createElement("input")
       upload.type = "file"
-      upload.accept = "image/*"
 
       upload.onchange = async () => {
 
@@ -119,24 +122,33 @@
     }
 
 
-    /* register media library */
+    /* wait until CMS loaded */
+    function initCMS() {
 
-    CMS.registerMediaLibrary({
+      if (!window.CMS) {
+        setTimeout(initCMS, 100)
+        return
+      }
 
-      name: "r2",
+      CMS.registerMediaLibrary({
 
-      init() { },
+        name: "r2",
 
-      show({ handleInsert }) {
+        init() { },
 
-        openGallery(handleInsert)
+        show({ handleInsert }) {
+          openGallery(handleInsert)
+        },
 
-      },
+        hide() { }
 
-      hide() { }
+      })
 
-    })
+      CMS.init()
 
+    }
+
+    initCMS()
 
   </script>
 
