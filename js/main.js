@@ -1,6 +1,21 @@
 // js/main.js
 // expects posts/posts.json structure: array of {title,slug,thumbnail,category,date,excerpt}
 // simple renderer for hero, trending, grid, sidebar
+
+const ignColors = [
+  "#e91916",
+  "#ff6b00",
+  "#ffb400",
+  "#3aa757",
+  "#0090ff",
+  "#8e44ad",
+  "#00bfa6"
+]
+
+function randomColor(){
+  return ignColors[Math.floor(Math.random()*ignColors.length)]
+}
+
 async function fetchPosts(){
   const res = await fetch('/posts/posts.json');
   if(!res.ok) return [];
@@ -8,16 +23,26 @@ async function fetchPosts(){
 }
 
 function createCard(post){
+
+  const color = randomColor()
+
   return `
   <article class="card">
     <a href="/${post.slug}" style="text-decoration:none;color:inherit">
+
       <img src="${post.thumbnail}" alt="${post.title}">
-      <div class="card-body">
+
+      <div class="card-overlay"></div>
+
+      <div class="card-color" style="background:${color}"></div>
+
+      <div class="card-content">
         <div class="cat">${post.category || 'Lore'}</div>
         <h3>${post.title}</h3>
       </div>
+
     </a>
-  </article>`;
+  </article>`
 }
 
 function uniq(arr){ return [...new Set(arr)]; }
@@ -56,10 +81,6 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     </div>`;
 
   document.getElementById('hero-section').innerHTML = heroHtml;
-
-  // TRENDING chips (pick top categories)
-  const cats = uniq(posts.map(p=>p.category).filter(Boolean)).slice(0,10);
-  document.getElementById('trending-strip').innerHTML = cats.map(c=>`<div class="chip">${c}</div>`).join('');
 
   // GRID = next posts
   const gridPosts = posts.slice(0,12);
