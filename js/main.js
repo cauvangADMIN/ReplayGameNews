@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   document.getElementById('hero-section').innerHTML = heroHtml;
 
   // GRID = next posts
-  const gridPosts = posts.slice(0,12);
+  const gridPosts = posts.slice(0,6);
   document.getElementById('main-grid').innerHTML = gridPosts.map(createCard).join('');
 
   // SIDEBAR trending list (top 6 titles)

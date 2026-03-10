@@ -3,100 +3,190 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GameLore — Trang chủ</title>
-  <link rel="stylesheet" href="styles/styles.css">
-  <!-- marked.js for markdown parsing on post page -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
-  <script src="js/main.js" defer></script>
-</head>
-<body>
-  <header class="site-header">
-    <div class="container">
-      <a class="logo" href="/">ReplayGameNews</a>
-      <nav class="main-nav">
-        <a href="/">Home</a>
-        <a href="/?category=lore">Lore</a>
-        <a href="/?category=easter-egg">Easter Eggs</a>
-        <a href="/admin/">Admin</a>
-      </nav>
-    </div>
-  </header>
 
-  <main class="container">
-    <!-- HERO -->
-    <section id="hero-section" class="hero">
+  <title>ReplayGameNews — Trang chủ</title>
+
+  <link rel="stylesheet" href="styles/styles.css">
+
+  <!-- markdown parser -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+
+  <script src="js/main.js" defer></script>
+
+</head>
+
+
+<body>
+
+<header class="site-header">
+
+  <div class="container">
+
+    <a class="logo" href="/">ReplayGameNews</a>
+
+    <nav class="main-nav">
+      <a href="/">Home</a>
+      <a href="/?category=lore">Lore</a>
+      <a href="/?category=easter-egg">Easter Eggs</a>
+      <a href="/admin/">Admin</a>
+    </nav>
+
+  </div>
+
+</header>
+
+
+
+<main class="container">
+
+
+  <!-- HERO -->
+  <section id="hero-section" class="hero">
+    <!-- filled by JS -->
+  </section>
+
+
+
+  <!-- TOP BANNER AD -->
+  <section class="top-ad">
+
+    <div class="ad-banner">
+
+      <!-- Google AdSense placeholder -->
+
+      <!--
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXX"
+           data-ad-slot="XXXX"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      -->
+
+      <div class="ad-placeholder">
+        AD BANNER 970 × 90
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- MAIN CONTENT -->
+  <div class="content-wrap">
+
+
+    <!-- GRID POSTS -->
+    <section id="main-grid" class="grid">
       <!-- filled by JS -->
     </section>
 
-    <!-- TOP BANNER AD -->
-    <section class="top-ad container">
-      
-      <!-- Google AdSense placeholder -->
-      <div class="ad-banner">
 
-        <!-- Sau này chỉ cần paste code adsense vào đây -->
 
-        <!-- Example AdSense format -->
-        <!--
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-XXXX"
-            data-ad-slot="XXXX"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        -->
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
 
-        <div class="ad-placeholder">
-          AD BANNER 970 × 90
+      <div class="widget">
+
+        <h4>Trending</h4>
+
+        <ul id="sidebar-trending"></ul>
+
+      </div>
+
+
+      <div class="widget">
+
+        <h4>Video nổi bật</h4>
+
+        <div class="video-thumb">
+
+          <iframe
+            width="100%"
+            height="160"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            title="Featured"
+            frameborder="0"
+            loading="lazy"
+            allowfullscreen>
+
+          </iframe>
+
         </div>
 
       </div>
 
-    </section>
 
-    <div class="content-wrap">
-      <!-- MAIN GRID -->
-      <section id="main-grid" class="grid">
-        <!-- filled by JS -->
-      </section>
+      <div class="widget ad">
 
-      <!-- SIDEBAR -->
-      <aside class="sidebar" id="sidebar">
-        <div class="widget">
-          <h4>Trending</h4>
-          <ul id="sidebar-trending"></ul>
+        <div class="ad-box">
+          AD 300 × 250
         </div>
 
-        <div class="widget">
-          <h4>Video nổi bật</h4>
-          <div class="video-thumb">
-            <iframe width="100%" height="160" src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-              title="Featured" frameborder="0" loading="lazy" allowfullscreen></iframe>
-          </div>
-        </div>
+      </div>
 
-        <div class="widget ad">
-          <!-- placeholder ad -->
-          <div class="ad-box">AD 300x250</div>
-        </div>
-      </aside>
+    </aside>
+
+
+  </div>
+
+
+
+  <!-- CATEGORY BAR -->
+  <section class="category-bar-wrapper">
+
+    <div class="category-bar">
+
+      <button class="cat-tab active">Latest</button>
+
+      <button class="cat-tab">Games</button>
+
+      <button class="cat-tab">Movies</button>
+
+      <button class="cat-tab">Characters</button>
+
+      <button class="cat-tab">Technology</button>
+
     </div>
 
-    <!-- MORE / FOOTER-LIKE -->
-    <section class="more-section" id="more-section">
-      <!-- filled by JS -->
-    </section>
-  </main>
+    <div class="category-bar-scroll"></div>
 
-  <footer class="site-footer">
-    <div class="container">
-      © <span id="year"></span> ReplayGameNews — Built with static + Decap CMS
-    </div>
-  </footer>
+  </section>
 
-  <script>
-    // small helper
-    document.getElementById('year').innerText = new Date().getFullYear();
-  </script>
+
+
+  <!-- MORE POSTS -->
+  <section class="more-section" id="more-section">
+    <!-- filled by JS -->
+  </section>
+
+
+</main>
+
+
+
+<footer class="site-footer">
+
+  <div class="container">
+
+    © <span id="year"></span>
+    ReplayGameNews — Built with static + Decap CMS
+
+  </div>
+
+</footer>
+
+
+
+<script>
+
+document.getElementById("year").innerText =
+  new Date().getFullYear()
+
+</script>
+
+
+
 </body>
 </html>
