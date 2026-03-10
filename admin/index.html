@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="utf-8"/>
@@ -13,7 +14,7 @@ position:fixed;
 right:10px;
 bottom:10px;
 z-index:9999;
-max-width:420px;
+max-width:400px;
 max-height:40vh;
 overflow:auto;
 background:#000;
@@ -21,10 +22,11 @@ color:#0f0;
 font-family:monospace;
 font-size:12px;
 padding:8px;
-border-radius:8px;
+border-radius:6px;
 display:none;
 }
 </style>
+
 </head>
 
 <body>
@@ -51,33 +53,39 @@ box.appendChild(pre)
 console.log(msg,obj||"")
 }
 
+
 async function uploadToR2(file){
 
-dbg("upload start",{name:file.name,size:file.size})
+dbg("upload start",{name:file.name})
 
 const form=new FormData()
 form.append("file",file,file.name)
 
-const res=await fetch("/api/upload",{method:"POST",body:form})
+const res=await fetch("/api/upload",{
+method:"POST",
+body:form
+})
 
 dbg("upload status",res.status)
 
-if(!res.ok) throw new Error("Upload failed")
+if(!res.ok) throw new Error("upload failed")
 
 const data=await res.json()
 
 dbg("upload response",data)
 
-const url=data.path||data.url
+return data.path || data.url
 
-if(!url) throw new Error("No URL returned")
-
-return url
 }
+
 
 function patchImageWidget(){
 
+if(!window.CMS) return
+
 const widget=CMS.getWidget("image")
+
+if(!widget) return
 
 const Base=widget.controlComponent
 
@@ -93,7 +101,7 @@ try{
 
 const url=await uploadToR2(file)
 
-dbg("R2 URL",url)
+dbg("uploaded url",url)
 
 this.props.onChange(url)
 
@@ -114,15 +122,21 @@ dbg("image widget patched")
 
 }
 
-window.addEventListener("load",()=>{
 
-dbg("CMS init")
+function waitCMS(){
 
-CMS.init()
+if(window.CMS){
 
-setTimeout(patchImageWidget,500)
+patchImageWidget()
+return
 
-})
+}
+
+setTimeout(waitCMS,200)
+
+}
+
+waitCMS()
 
 </script>
 
