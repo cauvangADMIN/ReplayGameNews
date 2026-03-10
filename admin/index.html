@@ -10,73 +10,171 @@
 
   <!-- stable release -->
   <script src="https://unpkg.com/decap-cms@3.10.1/dist/decap-cms.js"></script>
+  <style>
+    /* small helper for debug messages on page */
+    #cms-debug {
+      position: fixed;
+      right: 12px;
+      bottom: 12px;
+      z-index: 9999;
+      max-width: 360px;
+      max-height: 40vh;
+      overflow:auto;
+      font-family: monospace;
+      font-size:12px;
+      background: rgba(0,0,0,0.75);
+      color:#fff;
+      padding:8px;
+      border-radius:8px;
+    }
+  </style>
 </head>
 <body>
-  <!-- root: OK nếu có, nhưng CMS sẽ mount vào body nếu không có -->
   <div id="nc-root"></div>
+  <div id="cms-debug" aria-hidden="true" style="display:none"></div>
 
   <script>
-  /* register custom media library for Decap CMS */
+  function dbg(msg, obj){
+    try{
+      const box = document.getElementById('cms-debug');
+      box.style.display = 'block';
+      const p = document.createElement('div');
+      p.textContent = (new Date()).toLocaleTimeString() + ' — ' + msg;
+      box.appendChild(p);
+      if(obj) {
+        const pre = document.createElement('pre');
+        pre.style.color = '#9f9';
+        pre.style.whiteSpace = 'pre-wrap';
+        pre.textContent = JSON.stringify(obj, null, 2);
+        box.appendChild(pre);
+      }
+      // also log to console
+      console.log('[CMS DEBUG]', msg, obj || '');
+    } catch(e){
+      console.log('[CMS DEBUG FAIL]', msg, e);
+    }
+  }
+
+  /* Register custom media library with strong safeguards + logging.
+     This version:
+     - logs everything
+     - validates API response
+     - sends handleInsert an ARRAY of objects { path, name, size }
+     - if handleInsert throws, we catch and log
+  */
   CMS.registerMediaLibrary({
     name: "custom",
 
     init: () => {
-      console.log("Custom media library init");
+      dbg('custom media library init');
+      console.log('Custom media library init');
     },
 
-    show: async ({ handleInsert }) => {
-      // tạo input file
-      const input = document.createElement("input");
-      input.type = "file";
-      input.accept = "image/*";
+    show: async ({ handleInsert, forImage, value, config }) => {
+      dbg('media.show called', { forImage, value, config });
+
+      // create input
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
 
       input.onchange = async () => {
         const file = input.files[0];
-        if (!file) return;
+        if(!file){
+          dbg('no file selected');
+          return;
+        }
 
-        try {
-          // debug: show file info
-          console.log("Uploading file:", file.name, file.size, file.type);
+        dbg('file selected', { name: file.name, size: file.size, type: file.type });
 
+        try{
           const form = new FormData();
-          form.append("file", file, file.name);
+          form.append('file', file, file.name);
 
-          const res = await fetch("/api/upload", {
-            method: "POST",
+          dbg('posting to /api/upload (start)');
+
+          const res = await fetch('/api/upload', {
+            method: 'POST',
             body: form
           });
 
-          const data = await res.json();
-          console.log("Upload response:", data);
+          dbg('upload response status', { status: res.status, ok: res.ok });
 
-          // Expect API returns { path: "https://.../file.jpg" }
-          const publicUrl = data.path || data.url || data.result;
-
-          if (!publicUrl) {
-            console.error("Upload API did not return a path/url");
-            return;
+          let data;
+          try {
+            data = await res.json();
+          } catch(parseErr){
+            // maybe the API returned a raw image or text — log and bail
+            const text = await res.text().catch(()=>null);
+            dbg('upload parse error, response text', text);
+            throw new Error('Upload API did not return JSON');
           }
 
-          // IMPORTANT: handleInsert expects an ARRAY of file objects.
-          // Provide objects with at least `path` (and optional name/size).
-          handleInsert([
-            {
-              path: publicUrl,
-              name: file.name,
-              size: file.size
+          dbg('upload response json', data);
+
+          // Acceptable return shapes: { path: 'https://...' } or { url: '...' } etc.
+          const publicUrl = data.path || data.url || data.result;
+
+          if(!publicUrl || typeof publicUrl !== 'string'){
+            dbg('Upload API did not return a usable public URL', data);
+            throw new Error('Upload API missing path/url in response');
+          }
+
+          // ensure final URL is absolute and https
+          if(!/^https?:\/\//.test(publicUrl)){
+            dbg('Returned URL not absolute', publicUrl);
+            // optionally attempt to convert relative => absolute using location.origin
+            // publicUrl = location.origin + publicUrl;
+          }
+
+          // Prepare the item(s) expected by Decap CMS: array of objects with `path` key
+          const item = {
+            path: publicUrl,
+            name: file.name,
+            size: file.size
+          };
+
+          dbg('calling handleInsert with item', item);
+
+          // CALL handleInsert inside try/catch in case CMS expects a different shape
+          try {
+            const result = handleInsert([item]);
+            dbg('handleInsert call returned', { result });
+          } catch (hiErr) {
+            dbg('handleInsert threw error', hiErr);
+            // As a fallback try other shapes (some decap versions are quirky)
+            try {
+              // try single object
+              handleInsert(item);
+              dbg('handleInsert accepted single object fallback');
+            } catch (hiErr2){
+              dbg('handleInsert single-object fallback failed', hiErr2);
+              try {
+                // try passing just the path string (last-resort)
+                handleInsert(publicUrl);
+                dbg('handleInsert accepted string fallback');
+              } catch (hiErr3){
+                dbg('all handleInsert fallbacks failed', { hiErr, hiErr2, hiErr3 });
+                throw hiErr3 || hiErr2 || hiErr;
+              }
             }
-          ]);
-        } catch (err) {
-          console.error("Upload failed", err);
+          }
+
+        } catch (err){
+          console.error('Upload workflow error', err);
+          dbg('Upload workflow error', (err && err.message) ? err.message : String(err));
+          // show a browser alert for visibility (optionally remove in prod)
+          alert('Upload failed: ' + (err && err.message ? err.message : String(err)));
         }
-      };
+      }; // input.onchange
 
       // open file picker
       input.click();
-    },
+
+    }, // show
 
     hide: () => {
-      // optional cleanup
+      dbg('media.hide called');
     }
   });
   </script>
@@ -84,16 +182,19 @@
   <script>
     // debug helpers
     console.log('before CMS init, CMS object =', window.CMS);
+    dbg('before CMS.init');
 
     document.addEventListener('DOMContentLoaded', function () {
       try {
         console.log('DOM ready — calling CMS.init()');
-        
+        dbg('calling CMS.init() now');
         // init thủ công (CMS sẽ auto-load /admin/config.yml)
         CMS.init();
         console.log('CMS.init() returned');
+        dbg('CMS.init returned');
       } catch (e) {
         console.error('CMS.init() threw', e);
+        dbg('CMS.init() threw', { message: e && e.message ? e.message : String(e) });
         // show a visible error on the page so you don't see blank
         const p = document.createElement('pre');
         p.style.color = 'red';
