@@ -5,9 +5,9 @@ backend:
   base_url: https://decap-cms-oauth.vercel.app
   auth_endpoint: auth
 
-# vẫn giữ folder local để CMS preview
-media_folder: "images"
-public_folder: "/images"
+# # vẫn giữ folder local để CMS preview
+# media_folder: "images"
+# public_folder: "/images"
 
 # thêm media library custom upload
 media_library:
