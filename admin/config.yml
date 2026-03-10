@@ -5,28 +5,17 @@ backend:
   base_url: https://decap-cms-oauth.vercel.app
   auth_endpoint: auth
 
-# thêm media library custom upload
-media_library:
-  name: custom
-  config:
-    endpoint: "/api/upload"
-
 collections:
-  - name: "posts"
-    label: "Posts"
-    folder: "posts"
+  - name: posts
+    label: Posts
+    folder: posts
     create: true
     slug: "{{slug}}"
 
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-
-      - { label: "Date", name: "date", widget: "datetime" }
-
-      - { label: "Category", name: "category", widget: "string" }
-
-      - { label: "Thumbnail", name: "thumbnail", widget: "image" }
-
-      - { label: "Excerpt", name: "excerpt", widget: "string" }
-
-      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime }
+      - { label: Category, name: category, widget: string }
+      - { label: Thumbnail, name: thumbnail, widget: image }
+      - { label: Excerpt, name: excerpt, widget: string }
+      - { label: Body, name: body, widget: markdown }
