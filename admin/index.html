@@ -1,144 +1,145 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
-<meta charset="utf-8"/>
-<title>ReplayGameNews CMS</title>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta charset="utf-8" />
+  <title>ReplayGameNews CMS</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<script src="https://unpkg.com/decap-cms@3.10.1/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms@3.10.1/dist/decap-cms.js"></script>
 
-<style>
-#cms-debug{
-position:fixed;
-right:10px;
-bottom:10px;
-z-index:9999;
-max-width:400px;
-max-height:40vh;
-overflow:auto;
-background:#000;
-color:#0f0;
-font-family:monospace;
-font-size:12px;
-padding:8px;
-border-radius:6px;
-display:none;
-}
-</style>
+  <style>
+    body {
+      margin: 0
+    }
+
+    .r2-gallery {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #111;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 900px;
+      max-height: 80vh;
+      overflow: auto;
+      z-index: 99999;
+    }
+
+    .r2-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 120px);
+      gap: 10px;
+    }
+
+    .r2-grid img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+  </style>
 
 </head>
 
 <body>
 
-<div id="nc-root"></div>
-<div id="cms-debug"></div>
+  <div id="nc-root"></div>
 
-<script>
+  <script>
 
-function dbg(msg,obj){
-const box=document.getElementById("cms-debug")
-box.style.display="block"
+    /* upload file to R2 */
+    async function uploadToR2(file) {
 
-const line=document.createElement("div")
-line.textContent=new Date().toLocaleTimeString()+" "+msg
-box.appendChild(line)
+      const form = new FormData()
+      form.append("file", file)
 
-if(obj){
-const pre=document.createElement("pre")
-pre.textContent=JSON.stringify(obj,null,2)
-box.appendChild(pre)
-}
+      const res = await fetch("/api/upload", { method: "POST", body: form })
 
-console.log(msg,obj||"")
-}
+      const data = await res.json()
+
+      return data.path
+
+    }
 
 
-async function uploadToR2(file){
+    /* open gallery */
+    async function openGallery(handleInsert) {
 
-dbg("upload start",{name:file.name})
+      const res = await fetch("/api/list-images")
 
-const form=new FormData()
-form.append("file",file,file.name)
+      const images = await res.json()
 
-const res=await fetch("/api/upload",{
-method:"POST",
-body:form
-})
+      const modal = document.createElement("div")
+      modal.className = "r2-gallery"
 
-dbg("upload status",res.status)
+      const grid = document.createElement("div")
+      grid.className = "r2-grid"
 
-if(!res.ok) throw new Error("upload failed")
+      images.forEach(url => {
 
-const data=await res.json()
+        const img = document.createElement("img")
+        img.src = url
 
-dbg("upload response",data)
+        img.onclick = () => {
+          handleInsert(url)
+          modal.remove()
+        }
 
-return data.path || data.url
+        grid.appendChild(img)
 
-}
+      })
 
+      /* upload button */
 
-function patchImageWidget(){
+      const upload = document.createElement("input")
+      upload.type = "file"
+      upload.accept = "image/*"
 
-if(!window.CMS) return
+      upload.onchange = async () => {
 
-const widget=CMS.getWidget("image")
+        const file = upload.files[0]
 
-if(!widget) return
+        const url = await uploadToR2(file)
 
-const Base=widget.controlComponent
+        handleInsert(url)
 
-class R2ImageControl extends Base{
+        modal.remove()
 
-async handleChange(files){
+      }
 
-if(!files || !files.length) return
+      modal.appendChild(upload)
+      modal.appendChild(grid)
 
-const file=files[0]
+      document.body.appendChild(modal)
 
-try{
-
-const url=await uploadToR2(file)
-
-dbg("uploaded url",url)
-
-this.props.onChange(url)
-
-}catch(e){
-
-console.error(e)
-alert("Upload failed "+e.message)
-
-}
-
-}
-
-}
-
-CMS.registerWidget("image",R2ImageControl,widget.previewComponent)
-
-dbg("image widget patched")
-
-}
+    }
 
 
-function waitCMS(){
+    /* register media library */
 
-if(window.CMS){
+    CMS.registerMediaLibrary({
 
-patchImageWidget()
-return
+      name: "r2",
 
-}
+      init() { },
 
-setTimeout(waitCMS,200)
+      show({ handleInsert }) {
 
-}
+        openGallery(handleInsert)
 
-waitCMS()
+      },
 
-</script>
+      hide() { }
+
+    })
+
+
+  </script>
 
 </body>
+
 </html>
