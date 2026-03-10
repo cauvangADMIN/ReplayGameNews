@@ -36,5 +36,7 @@ export default async function handler(req, res) {
   const url =
     `https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/${filename}`
 
-  res.status(200).json({ url })
+  res.status(200).json({
+    path: url
+  })
 }
