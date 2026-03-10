@@ -5,62 +5,47 @@
   <title>ReplayGameNews CMS</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <!-- bắt buộc: cho phép init thủ công để ta điều khiển thời điểm mount -->
   <script>window.CMS_MANUAL_INIT = true;</script>
-
-  <!-- stable release -->
   <script src="https://unpkg.com/decap-cms@3.10.1/dist/decap-cms.js"></script>
+
   <style>
-    /* small helper for debug messages on page */
-    #cms-debug {
-      position: fixed;
-      right: 12px;
-      bottom: 12px;
-      z-index: 9999;
-      max-width: 360px;
-      max-height: 40vh;
-      overflow:auto;
-      font-family: monospace;
-      font-size:12px;
-      background: rgba(0,0,0,0.75);
-      color:#fff;
-      padding:8px;
-      border-radius:8px;
-    }
+    #cms-debug { position: fixed; right: 12px; bottom: 12px; z-index:9999;
+                 max-width:420px; max-height:40vh; overflow:auto;
+                 font-family: monospace; font-size:12px; background:rgba(0,0,0,0.75);
+                 color:#fff; padding:8px; border-radius:8px; display:none; }
+    #cms-debug pre { color:#9f9; white-space:pre-wrap; margin:6px 0; }
   </style>
 </head>
 <body>
   <div id="nc-root"></div>
-  <div id="cms-debug" aria-hidden="true" style="display:none"></div>
+  <div id="cms-debug" aria-hidden="true"></div>
 
   <script>
+  /* small debug helper */
   function dbg(msg, obj){
     try{
       const box = document.getElementById('cms-debug');
       box.style.display = 'block';
-      const p = document.createElement('div');
-      p.textContent = (new Date()).toLocaleTimeString() + ' — ' + msg;
-      box.appendChild(p);
-      if(obj) {
+      const line = document.createElement('div');
+      line.textContent = (new Date()).toLocaleTimeString() + ' — ' + msg;
+      box.appendChild(line);
+      if(obj !== undefined){
         const pre = document.createElement('pre');
-        pre.style.color = '#9f9';
-        pre.style.whiteSpace = 'pre-wrap';
-        pre.textContent = JSON.stringify(obj, null, 2);
+        try { pre.textContent = JSON.stringify(obj, null, 2); }
+        catch(e){ pre.textContent = String(obj); }
         box.appendChild(pre);
       }
-      // also log to console
       console.log('[CMS DEBUG]', msg, obj || '');
-    } catch(e){
+    }catch(e){
       console.log('[CMS DEBUG FAIL]', msg, e);
     }
   }
 
-  /* Register custom media library with strong safeguards + logging.
-     This version:
-     - logs everything
-     - validates API response
-     - sends handleInsert an ARRAY of objects { path, name, size }
-     - if handleInsert throws, we catch and log
+  /* Robust registerMediaLibrary implementation
+     - Provides both show and open (alias)
+     - Detects multiple callback names (handleInsert, onInsert)
+     - Calls with ARRAY of {path,name,size}
+     - Tries fallbacks if first approach causes CMS to throw
   */
   CMS.registerMediaLibrary({
     name: "custom",
@@ -70,139 +55,142 @@
       console.log('Custom media library init');
     },
 
-    show: async ({ handleInsert, forImage, value, config }) => {
-      dbg('media.show called', { forImage, value, config });
-
-      // create input
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'image/*';
-
-      input.onchange = async () => {
-        const file = input.files[0];
-        if(!file){
-          dbg('no file selected');
-          return;
-        }
-
-        dbg('file selected', { name: file.name, size: file.size, type: file.type });
-
-        try{
-          const form = new FormData();
-          form.append('file', file, file.name);
-
-          dbg('posting to /api/upload (start)');
-
-          const res = await fetch('/api/upload', {
-            method: 'POST',
-            body: form
-          });
-
-          dbg('upload response status', { status: res.status, ok: res.ok });
-
-          let data;
-          try {
-            data = await res.json();
-          } catch(parseErr){
-            // maybe the API returned a raw image or text — log and bail
-            const text = await res.text().catch(()=>null);
-            dbg('upload parse error, response text', text);
-            throw new Error('Upload API did not return JSON');
-          }
-
-          dbg('upload response json', data);
-
-          // Acceptable return shapes: { path: 'https://...' } or { url: '...' } etc.
-          const publicUrl = data.path || data.url || data.result;
-
-          if(!publicUrl || typeof publicUrl !== 'string'){
-            dbg('Upload API did not return a usable public URL', data);
-            throw new Error('Upload API missing path/url in response');
-          }
-
-          // ensure final URL is absolute and https
-          if(!/^https?:\/\//.test(publicUrl)){
-            dbg('Returned URL not absolute', publicUrl);
-            // optionally attempt to convert relative => absolute using location.origin
-            // publicUrl = location.origin + publicUrl;
-          }
-
-          // Prepare the item(s) expected by Decap CMS: array of objects with `path` key
-          const item = {
-            path: publicUrl,
-            name: file.name,
-            size: file.size
-          };
-
-          dbg('calling handleInsert with item', item);
-
-          // CALL handleInsert inside try/catch in case CMS expects a different shape
-          try {
-            const result = handleInsert([item]);
-            dbg('handleInsert call returned', { result });
-          } catch (hiErr) {
-            dbg('handleInsert threw error', hiErr);
-            // As a fallback try other shapes (some decap versions are quirky)
-            try {
-              // try single object
-              handleInsert(item);
-              dbg('handleInsert accepted single object fallback');
-            } catch (hiErr2){
-              dbg('handleInsert single-object fallback failed', hiErr2);
-              try {
-                // try passing just the path string (last-resort)
-                handleInsert(publicUrl);
-                dbg('handleInsert accepted string fallback');
-              } catch (hiErr3){
-                dbg('all handleInsert fallbacks failed', { hiErr, hiErr2, hiErr3 });
-                throw hiErr3 || hiErr2 || hiErr;
-              }
-            }
-          }
-
-        } catch (err){
-          console.error('Upload workflow error', err);
-          dbg('Upload workflow error', (err && err.message) ? err.message : String(err));
-          // show a browser alert for visibility (optionally remove in prod)
-          alert('Upload failed: ' + (err && err.message ? err.message : String(err)));
-        }
-      }; // input.onchange
-
-      // open file picker
-      input.click();
-
-    }, // show
-
+    // "show" is the canonical API name; "open" alias added for older/newer variants
+    show: async function(args){
+      return showImpl(args);
+    },
+    open: async function(args){
+      return showImpl(args);
+    },
     hide: () => {
       dbg('media.hide called');
     }
   });
-  </script>
 
-  <script>
-    // debug helpers
-    console.log('before CMS init, CMS object =', window.CMS);
-    dbg('before CMS.init');
+  async function showImpl({ handleInsert, onInsert, insert, forImage, value, config } = {}){
+    dbg('media.show called', { hasHandleInsert: !!handleInsert, hasOnInsert: !!onInsert, hasInsert: !!insert, forImage, value, config });
 
-    document.addEventListener('DOMContentLoaded', function () {
-      try {
-        console.log('DOM ready — calling CMS.init()');
-        dbg('calling CMS.init() now');
-        // init thủ công (CMS sẽ auto-load /admin/config.yml)
-        CMS.init();
-        console.log('CMS.init() returned');
-        dbg('CMS.init returned');
-      } catch (e) {
-        console.error('CMS.init() threw', e);
-        dbg('CMS.init() threw', { message: e && e.message ? e.message : String(e) });
-        // show a visible error on the page so you don't see blank
-        const p = document.createElement('pre');
-        p.style.color = 'red';
-        p.style.whiteSpace = 'pre-wrap';
-        p.textContent = 'CMS init error: ' + (e && e.stack ? e.stack : String(e));
-        document.body.appendChild(p);
+    // choose the callback the CMS actually gave us
+    const callback = handleInsert || onInsert || insert || null;
+
+    // create file input
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+
+    input.onchange = async () => {
+      const file = input.files && input.files[0];
+      if(!file){ dbg('no file chosen'); return; }
+
+      dbg('file chosen', { name:file.name, size:file.size, type:file.type });
+
+      // prepare form
+      const form = new FormData();
+      form.append('file', file, file.name);
+
+      try{
+        dbg('posting to /api/upload (start)');
+
+        const res = await fetch('/api/upload', { method:'POST', body: form });
+        dbg('upload status', { status: res.status, ok: res.ok });
+
+        // try parse JSON
+        let data;
+        try {
+          data = await res.json();
+        } catch(e) {
+          const text = await res.text().catch(()=>null);
+          dbg('upload parse error, response text', text);
+          throw new Error('Upload API did not return JSON');
+        }
+
+        dbg('upload response json', data);
+
+        const publicUrl = data.path || data.url || data.result;
+        if(!publicUrl || typeof publicUrl !== 'string'){
+          dbg('no usable url returned from API', data);
+          throw new Error('Upload API returned no path/url');
+        }
+
+        // Build item object expected by Decap
+        const item = { path: publicUrl, name: file.name, size: file.size };
+
+        dbg('prepared item for insert', item);
+
+        // Wait a beat — avoids race conditions inside some Decap versions
+        await new Promise(r => setTimeout(r, 80));
+
+        // If CMS provided an insert callback, use it. Try multiple fallbacks if needed.
+        if(callback){
+          try{
+            dbg('calling callback with array');
+            callback([item]); // preferred
+            dbg('callback(array) succeeded');
+            return;
+          }catch(cbErr){
+            dbg('callback(array) threw', String(cbErr));
+            // try single object
+            try{
+              dbg('trying callback(single object) fallback');
+              callback(item);
+              dbg('callback(object) succeeded');
+              return;
+            }catch(cbErr2){
+              dbg('callback(object) also threw', String(cbErr2));
+              // try raw string
+              try{
+                dbg('trying callback(string) fallback');
+                callback(publicUrl);
+                dbg('callback(string) succeeded');
+                return;
+              }catch(cbErr3){
+                dbg('all callback fallbacks failed', { cbErr, cbErr2, cbErr3 });
+                throw cbErr3 || cbErr2 || cbErr;
+              }
+            }
+          }
+        } else {
+          // If no callback present, try calling global CMS method (last resort)
+          dbg('no callback provided by CMS (handleInsert/onInsert missing)');
+          // Some Decap versions expose `CMS.mediaLibrary` methods - try to insert via the content interface
+          try {
+            if(window.CMS && window.CMS.mediaLibrary && typeof window.CMS.mediaLibrary.insert === 'function'){
+              dbg('using CMS.mediaLibrary.insert fallback');
+              window.CMS.mediaLibrary.insert([item]);
+              dbg('CMS.mediaLibrary.insert succeeded');
+              return;
+            }
+          } catch(e){
+            dbg('CMS.mediaLibrary.insert fallback failed', String(e));
+          }
+          throw new Error('No insert callback provided by CMS');
+        }
+
+      } catch (err){
+        dbg('upload error', err && err.message ? err.message : String(err));
+        console.error('Custom media library upload error:', err);
+        // visible alert for testing
+        alert('Upload failed: ' + (err && err.message ? err.message : String(err)));
       }
-    });
+    };
+
+    // trigger file picker
+    input.click();
+  }
+
+  // init + debug when DOM ready
+  dbg('before CMS.init');
+  document.addEventListener('DOMContentLoaded', function(){
+    try{
+      dbg('calling CMS.init()');
+      CMS.init();
+      dbg('CMS.init returned');
+    }catch(e){
+      dbg('CMS.init threw', (e && e.message) ? e.message : String(e));
+      console.error('CMS.init threw', e);
+    }
+  });
+
   </script>
 </body>
 </html>
