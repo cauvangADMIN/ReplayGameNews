@@ -67,115 +67,118 @@
     }
   });
 
-  async function showImpl({ handleInsert, onInsert, insert, forImage, value, config } = {}){
+  /**
+   * showImpl
+   * - returns a Promise that resolves to an array of items (or null)
+   * - calls CMS callbacks (handleInsert/onInsert/insert) with fallbacks
+   */
+  async function showImpl({ handleInsert, onInsert, insert, forImage, value, config } = {}) {
     dbg('media.show called', { hasHandleInsert: !!handleInsert, hasOnInsert: !!onInsert, hasInsert: !!insert, forImage, value, config });
 
-    // choose the callback the CMS actually gave us
     const callback = handleInsert || onInsert || insert || null;
 
-    // create file input
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
+    return new Promise((resolve, reject) => {
+      // tạo input mới cho mỗi lần gọi
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
 
-    input.onchange = async () => {
-      const file = input.files && input.files[0];
-      if(!file){ dbg('no file chosen'); return; }
+      input.onchange = async () => {
+        const file = input.files && input.files[0];
+        if (!file) {
+          dbg('no file chosen');
+          resolve(null); // no file = resolve null (avoid undefined)
+          return;
+        }
 
-      dbg('file chosen', { name:file.name, size:file.size, type:file.type });
+        dbg('file chosen', { name: file.name, size: file.size, type: file.type });
 
-      // prepare form
-      const form = new FormData();
-      form.append('file', file, file.name);
+        const form = new FormData();
+        form.append('file', file, file.name);
 
-      try{
-        dbg('posting to /api/upload (start)');
-
-        const res = await fetch('/api/upload', { method:'POST', body: form });
-        dbg('upload status', { status: res.status, ok: res.ok });
-
-        // try parse JSON
-        let data;
         try {
-          data = await res.json();
-        } catch(e) {
-          const text = await res.text().catch(()=>null);
-          dbg('upload parse error, response text', text);
-          throw new Error('Upload API did not return JSON');
-        }
+          dbg('posting to /api/upload (start)');
+          const res = await fetch('/api/upload', { method: 'POST', body: form });
+          dbg('upload status', { status: res.status, ok: res.ok });
 
-        dbg('upload response json', data);
+          let data;
+          try {
+            data = await res.json();
+          } catch (e) {
+            const text = await res.text().catch(() => null);
+            dbg('upload parse error, response text', text);
+            throw new Error('Upload API did not return JSON');
+          }
 
-        const publicUrl = data.path || data.url || data.result;
-        if(!publicUrl || typeof publicUrl !== 'string'){
-          dbg('no usable url returned from API', data);
-          throw new Error('Upload API returned no path/url');
-        }
+          dbg('upload response json', data);
 
-        // Build item object expected by Decap
-        const item = { path: publicUrl, name: file.name, size: file.size };
+          const publicUrl = data.path || data.url || data.result;
+          if (!publicUrl || typeof publicUrl !== 'string') {
+            dbg('no usable url returned from API', data);
+            throw new Error('Upload API returned no path/url');
+          }
 
-        dbg('prepared item for insert', item);
+          const item = { path: publicUrl, name: file.name, size: file.size };
+          dbg('prepared item for insert', item);
 
-        // Wait a beat — avoids race conditions inside some Decap versions
-        await new Promise(r => setTimeout(r, 80));
+          // give CMS a tiny moment (race condition mitigation)
+          await new Promise(r => setTimeout(r, 80));
 
-        // If CMS provided an insert callback, use it. Try multiple fallbacks if needed.
-        if(callback){
-          try{
-            dbg('calling callback with array');
-            callback([item]); // preferred
-            dbg('callback(array) succeeded');
-            return;
-          }catch(cbErr){
-            dbg('callback(array) threw', String(cbErr));
-            // try single object
-            try{
-              dbg('trying callback(single object) fallback');
-              callback(item);
-              dbg('callback(object) succeeded');
-              return;
-            }catch(cbErr2){
-              dbg('callback(object) also threw', String(cbErr2));
-              // try raw string
-              try{
-                dbg('trying callback(string) fallback');
-                callback(publicUrl);
-                dbg('callback(string) succeeded');
-                return;
-              }catch(cbErr3){
-                dbg('all callback fallbacks failed', { cbErr, cbErr2, cbErr3 });
-                throw cbErr3 || cbErr2 || cbErr;
+          // call callback if provided (try fallbacks)
+          if (callback) {
+            try {
+              dbg('calling callback with array');
+              callback([item]); // preferred
+              dbg('callback(array) succeeded');
+            } catch (cbErr) {
+              dbg('callback(array) threw', String(cbErr));
+              try {
+                dbg('trying callback(single object) fallback');
+                callback(item);
+                dbg('callback(object) succeeded');
+              } catch (cbErr2) {
+                dbg('callback(object) also threw', String(cbErr2));
+                try {
+                  dbg('trying callback(string) fallback');
+                  callback(publicUrl);
+                  dbg('callback(string) succeeded');
+                } catch (cbErr3) {
+                  dbg('all callback fallbacks failed', { cbErr, cbErr2, cbErr3 });
+                  reject(cbErr3 || cbErr2 || cbErr);
+                  return;
+                }
               }
             }
-          }
-        } else {
-          // If no callback present, try calling global CMS method (last resort)
-          dbg('no callback provided by CMS (handleInsert/onInsert missing)');
-          // Some Decap versions expose `CMS.mediaLibrary` methods - try to insert via the content interface
-          try {
-            if(window.CMS && window.CMS.mediaLibrary && typeof window.CMS.mediaLibrary.insert === 'function'){
-              dbg('using CMS.mediaLibrary.insert fallback');
-              window.CMS.mediaLibrary.insert([item]);
-              dbg('CMS.mediaLibrary.insert succeeded');
-              return;
+          } else {
+            // fallback global API
+            try {
+              if (window.CMS && window.CMS.mediaLibrary && typeof window.CMS.mediaLibrary.insert === 'function') {
+                dbg('using CMS.mediaLibrary.insert fallback');
+                window.CMS.mediaLibrary.insert([item]);
+                dbg('CMS.mediaLibrary.insert succeeded');
+              } else {
+                dbg('no insert callback provided by CMS and no global insert available');
+              }
+            } catch (e) {
+              dbg('CMS.mediaLibrary.insert fallback failed', String(e));
+              // continue — we'll still resolve with item
             }
-          } catch(e){
-            dbg('CMS.mediaLibrary.insert fallback failed', String(e));
           }
-          throw new Error('No insert callback provided by CMS');
+
+          // Important: resolve with the inserted item(s) so Decap won't get undefined
+          resolve([item]);
+
+        } catch (err) {
+          dbg('upload error', err && err.message ? err.message : String(err));
+          console.error('Custom media library upload error:', err);
+          alert('Upload failed: ' + (err && err.message ? err.message : String(err)));
+          reject(err);
         }
+      };
 
-      } catch (err){
-        dbg('upload error', err && err.message ? err.message : String(err));
-        console.error('Custom media library upload error:', err);
-        // visible alert for testing
-        alert('Upload failed: ' + (err && err.message ? err.message : String(err)));
-      }
-    };
-
-    // trigger file picker
-    input.click();
+      // trigger file picker
+      input.click();
+    });
   }
 
   // init + debug when DOM ready
