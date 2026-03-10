@@ -15,39 +15,43 @@
   <!-- root: OK nếu có, nhưng CMS sẽ mount vào body nếu không có -->
   <div id="nc-root"></div>
 
-  <script>
-  CMS.registerMediaLibrary({
-    name: "custom",
+    <script>
+    CMS.registerMediaLibrary({
+      name: "custom",
 
-    async show({ handleInsert }) {
+      init: () => {
+        console.log("Custom media library initialized");
+      },
 
-      const input = document.createElement("input")
-      input.type = "file"
-      input.accept = "image/*"
+      show: ({ handleInsert }) => {
 
-      input.onchange = async () => {
+        const input = document.createElement("input")
+        input.type = "file"
+        input.accept = "image/*"
 
-        const file = input.files[0]
+        input.onchange = async () => {
 
-        const form = new FormData()
-        form.append("file", file)
+          const file = input.files[0]
 
-        const res = await fetch("/api/upload", {
-          method: "POST",
-          body: form
-        })
+          const form = new FormData()
+          form.append("file", file)
 
-        const data = await res.json()
+          const res = await fetch("/api/upload", {
+            method: "POST",
+            body: form
+          })
 
-        handleInsert({
-          path: data.url
-        })
-      }
+          const data = await res.json()
 
-      input.click()
-    }
-  })
-  </script>
+          handleInsert(data.path)
+        }
+
+        input.click()
+      },
+
+      hide: () => {}
+    })
+    </script>
 
   <script>
     // debug helpers
