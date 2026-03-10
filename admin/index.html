@@ -15,43 +15,71 @@
   <!-- root: OK nếu có, nhưng CMS sẽ mount vào body nếu không có -->
   <div id="nc-root"></div>
 
-    <script>
-    CMS.registerMediaLibrary({
-      name: "custom",
+  <script>
+  /* register custom media library for Decap CMS */
+  CMS.registerMediaLibrary({
+    name: "custom",
 
-      init: () => {
-        console.log("Custom media library initialized");
-      },
+    init: () => {
+      console.log("Custom media library init");
+    },
 
-      show: ({ handleInsert }) => {
+    show: async ({ handleInsert }) => {
+      // tạo input file
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "image/*";
 
-        const input = document.createElement("input")
-        input.type = "file"
-        input.accept = "image/*"
+      input.onchange = async () => {
+        const file = input.files[0];
+        if (!file) return;
 
-        input.onchange = async () => {
+        try {
+          // debug: show file info
+          console.log("Uploading file:", file.name, file.size, file.type);
 
-          const file = input.files[0]
-
-          const form = new FormData()
-          form.append("file", file)
+          const form = new FormData();
+          form.append("file", file, file.name);
 
           const res = await fetch("/api/upload", {
             method: "POST",
             body: form
-          })
+          });
 
-          const data = await res.json()
+          const data = await res.json();
+          console.log("Upload response:", data);
 
-          handleInsert(data.path)
+          // Expect API returns { path: "https://.../file.jpg" }
+          const publicUrl = data.path || data.url || data.result;
+
+          if (!publicUrl) {
+            console.error("Upload API did not return a path/url");
+            return;
+          }
+
+          // IMPORTANT: handleInsert expects an ARRAY of file objects.
+          // Provide objects with at least `path` (and optional name/size).
+          handleInsert([
+            {
+              path: publicUrl,
+              name: file.name,
+              size: file.size
+            }
+          ]);
+        } catch (err) {
+          console.error("Upload failed", err);
         }
+      };
 
-        input.click()
-      },
+      // open file picker
+      input.click();
+    },
 
-      hide: () => {}
-    })
-    </script>
+    hide: () => {
+      // optional cleanup
+    }
+  });
+  </script>
 
   <script>
     // debug helpers
