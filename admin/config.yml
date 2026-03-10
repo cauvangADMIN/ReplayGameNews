@@ -5,15 +5,8 @@ backend:
   base_url: https://decap-cms-oauth.vercel.app
   auth_endpoint: auth
 
-# restore these (media_folder + public_folder)
-media_folder: "images"        # nơi lưu file trong repo (nếu bạn lưu trên repo)
-public_folder: "/images"      # đường dẫn public trong site
-
-# nếu bạn vẫn muốn dùng custom media library endpoint (tương tự ban đầu)
-media_library:
-  name: custom
-  config:
-    endpoint: "/api/upload"
+media_folder: "images"
+public_folder: "/images"
 
 collections:
   - name: posts
