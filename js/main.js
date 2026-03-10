@@ -3,13 +3,13 @@
 // simple renderer for hero, trending, grid, sidebar
 
 const ignColors = [
-  "#e91916",
+  "#f56360",
   "#ff6b00",
-  "#ffb400",
-  "#3aa757",
-  "#0090ff",
-  "#8e44ad",
-  "#00bfa6"
+  "#ecbb48",
+  "#53f27d",
+  "#96c5e9",
+  "#c362ec",
+  "#27f5da"
 ]
 
 function randomColor(){
@@ -96,3 +96,207 @@ document.addEventListener('DOMContentLoaded', async ()=>{
       `<h3>Older posts</h3><div class="grid">${posts.slice(12,20).map(createCard).join('')}</div>`;
   }
 });
+
+// shared state
+let allPosts = []
+let filteredPosts = []
+
+let currentCategory = "latest"
+
+let index = 0
+const batchSize = 9
+
+
+
+function createListItem(post){
+
+  return `
+  <article class="latest-item">
+
+    <a href="/${post.slug}">
+      <img class="latest-thumb"
+           src="${post.thumbnail}"
+           alt="${post.title}">
+    </a>
+
+    <div class="latest-content">
+
+      <a href="/${post.slug}" style="text-decoration:none;color:inherit">
+        <h3>${post.title}</h3>
+      </a>
+
+      <div class="latest-meta">
+        ${post.date || ""}
+      </div>
+
+      <div class="latest-excerpt">
+        ${post.excerpt || ""}
+      </div>
+
+    </div>
+
+  </article>`
+}
+
+
+
+function applyFilter(category){
+
+  const title = document.getElementById("section-title")
+
+  if(category === "latest"){
+
+    title.innerText = "Latest News"
+
+    filteredPosts = [...allPosts].sort(
+      (a,b)=> new Date(b.date) - new Date(a.date)
+    )
+
+  } else {
+
+    title.innerText = category
+
+    filteredPosts = allPosts.filter(
+      p => (p.category || "").toLowerCase() === category
+    )
+
+  }
+
+  index = 0
+
+  document.getElementById("posts-list").innerHTML = ""
+
+  renderBatch()
+}
+
+
+
+function renderBatch(){
+
+  const container = document.getElementById("posts-list")
+
+  const slice = filteredPosts.slice(
+    index,
+    index + batchSize
+  )
+
+  container.insertAdjacentHTML(
+    "beforeend",
+    slice.map(createListItem).join("")
+  )
+
+  index += batchSize
+}
+
+
+
+function initInfiniteScroll(){
+
+  window.addEventListener("scroll",()=>{
+
+    const scrollPos =
+      window.innerHeight + window.scrollY
+
+    const trigger =
+      document.body.offsetHeight - 800
+
+    if(scrollPos > trigger){
+
+      if(index < filteredPosts.length){
+        renderBatch()
+      }
+
+    }
+
+  })
+
+}
+
+function initTabs(){
+
+  document.querySelectorAll(".cat-tab")
+    .forEach(btn=>{
+
+      btn.addEventListener("click",()=>{
+
+        document.querySelectorAll(".cat-tab")
+          .forEach(b=>b.classList.remove("active"))
+
+        btn.classList.add("active")
+
+        const name =
+          btn.innerText.toLowerCase()
+
+        applyFilter(name)
+
+      })
+
+    })
+
+}
+
+
+document.addEventListener('DOMContentLoaded', async ()=>{
+
+  const posts = await fetchPosts()
+
+  if(!posts || posts.length===0){
+    return
+  }
+
+  allPosts = posts
+
+  /* HERO */
+  const hero = posts[0]
+  const side = posts.slice(1,4)
+
+  const heroHtml = `
+  <div class="hero-card">
+    <a href="/${hero.slug}">
+      <img src="${hero.thumbnail}">
+      <h1>${hero.title}</h1>
+      <p>${hero.excerpt || ""}</p>
+    </a>
+  </div>
+  <div class="hero-card small-list">
+    ${side.map(s=>`
+      <div class="card">
+        <a href="/${s.slug}" style="display:flex;gap:12px">
+          <img src="${s.thumbnail}">
+          <div>
+            <div class="cat">${s.category}</div>
+            <h4>${s.title}</h4>
+          </div>
+        </a>
+      </div>`).join("")}
+  </div>`
+
+  document.getElementById("hero-section")
+    .innerHTML = heroHtml
+
+
+  /* GRID */
+
+  const gridPosts = posts.slice(0,6)
+
+  document.getElementById("main-grid")
+    .innerHTML = gridPosts.map(createCard).join("")
+
+
+  /* SIDEBAR */
+
+  document.getElementById("sidebar-trending")
+    .innerHTML = posts.slice(0,6)
+    .map(p=>`<li><a href="/${p.slug}">${p.title}</a></li>`)
+    .join("")
+
+
+  /* INIT */
+
+  initTabs()
+
+  initInfiniteScroll()
+
+  applyFilter("latest")
+
+})
