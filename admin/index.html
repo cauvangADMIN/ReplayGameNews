@@ -1,161 +1,150 @@
 <!DOCTYPE html>
 
 <html>
-
 <head>
-  <meta charset="utf-8" />
-  <title>ReplayGameNews CMS</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8"/>
+<title>ReplayGameNews CMS</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-  <!-- prevent auto init -->
+<script>
+window.CMS_MANUAL_INIT = true
+</script>
 
-  <script>
-    window.CMS_MANUAL_INIT = true
-  </script>
+<script src="https://unpkg.com/decap-cms@3.10.1/dist/decap-cms.js"></script>
 
-  <script src="https://unpkg.com/decap-cms@3.10.1/dist/decap-cms.js"></script>
+<style>
+body{margin:0}
 
-  <style>
-    body {
-      margin: 0
-    }
+.r2-gallery{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#111;
+padding:20px;
+border-radius:8px;
+max-width:900px;
+max-height:80vh;
+overflow:auto;
+z-index:99999;
+}
 
-    .r2-gallery {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #111;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 900px;
-      max-height: 80vh;
-      overflow: auto;
-      z-index: 99999;
-    }
+.r2-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,120px);
+gap:10px;
+}
 
-    .r2-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, 120px);
-      gap: 10px;
-    }
-
-    .r2-grid img {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-  </style>
+.r2-grid img{
+width:120px;
+height:120px;
+object-fit:cover;
+cursor:pointer;
+border-radius:4px;
+}
+</style>
 
 </head>
 
 <body>
 
-  <div id="nc-root"></div>
+<div id="nc-root"></div>
 
-  <script>
+<script>
 
-    /* upload to R2 */
-    async function uploadToR2(file) {
+/* upload to R2 */
+async function uploadToR2(file){
 
-      const form = new FormData()
-      form.append("file", file)
+const form=new FormData()
+form.append("file",file)
 
-      const res = await fetch("/api/upload", { method: "POST", body: form })
+const res=await fetch("/api/upload",{method:"POST",body:form})
 
-      const data = await res.json()
+const data=await res.json()
 
-      return data.path
+return data.path
 
-    }
-
-
-    /* gallery picker */
-    async function openGallery(handleInsert) {
-
-      const res = await fetch("/api/list-images")
-
-      const images = await res.json()
-
-      const modal = document.createElement("div")
-      modal.className = "r2-gallery"
-
-      const grid = document.createElement("div")
-      grid.className = "r2-grid"
-
-      images.forEach(url => {
-
-        const img = document.createElement("img")
-        img.src = url
-
-        img.onclick = () => {
-          handleInsert(url)
-          modal.remove()
-        }
-
-        grid.appendChild(img)
-
-      })
-
-      const upload = document.createElement("input")
-      upload.type = "file"
-
-      upload.onchange = async () => {
-
-        const file = upload.files[0]
-
-        const url = await uploadToR2(file)
-
-        handleInsert(url)
-
-        modal.remove()
-
-      }
-
-      modal.appendChild(upload)
-      modal.appendChild(grid)
-
-      document.body.appendChild(modal)
-
-    }
+}
 
 
-    /* wait until CMS loaded */
-    function initCMS() {
+/* open gallery */
+async function openGallery(handleInsert){
 
-      if (!window.CMS) {
-        setTimeout(initCMS, 100)
-        return
-      }
+console.log("Opening R2 gallery")
 
-    CMS.registerMediaLibrary({
+const res=await fetch("/api/list-images")
 
-      name: "r2",
+const images=await res.json()
 
-      init(){},
+const modal=document.createElement("div")
+modal.className="r2-gallery"
 
-      show({ handleInsert }){
+const grid=document.createElement("div")
+grid.className="r2-grid"
 
-        openGallery((url)=>{
-          handleInsert(url)
-        })
+images.forEach(url=>{
 
-      },
+const img=document.createElement("img")
+img.src=url
 
-      hide(){}
+img.onclick=()=>{
+handleInsert(url)
+modal.remove()
+}
 
-    })
+grid.appendChild(img)
 
-      CMS.init()
+})
 
-    }
+const upload=document.createElement("input")
+upload.type="file"
 
-    initCMS()
+upload.onchange=async()=>{
 
-  </script>
+const file=upload.files[0]
+
+const url=await uploadToR2(file)
+
+handleInsert(url)
+
+modal.remove()
+
+}
+
+modal.appendChild(upload)
+modal.appendChild(grid)
+
+document.body.appendChild(modal)
+
+}
+
+
+/* register media library BEFORE CMS.init */
+
+CMS.registerMediaLibrary({
+
+name:"r2",
+
+init(){},
+
+show({handleInsert}){
+
+console.log("Decap called R2 media library")
+
+openGallery(handleInsert)
+
+},
+
+hide(){}
+
+})
+
+
+/* start CMS */
+
+CMS.init()
+
+</script>
 
 </body>
-
 </html>
