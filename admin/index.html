@@ -130,23 +130,23 @@
         return
       }
 
-      CMS.registerMediaLibrary({
+    CMS.registerMediaLibrary({
 
-        name: "r2",
+      name: "r2",
 
-        init() { },
+      init(){},
 
-      show({insert}){
+      show({ handleInsert }){
 
         openGallery((url)=>{
-          insert({path:url})
+          handleInsert(url)
         })
 
       },
 
-        hide() { }
+      hide(){}
 
-      })
+    })
 
       CMS.init()
 
