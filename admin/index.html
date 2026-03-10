@@ -136,9 +136,13 @@
 
         init() { },
 
-        show({ handleInsert }) {
-          openGallery(handleInsert)
-        },
+      show({insert}){
+
+        openGallery((url)=>{
+          insert({path:url})
+        })
+
+      },
 
         hide() { }
 
