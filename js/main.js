@@ -1,8 +1,9 @@
 // js/main.js
-// expects posts/posts.json structure: array of {title,slug,thumbnail,category,date,excerpt}
+// expects posts/posts.json structure: {title,slug,thumbnail,category,date,excerpt}
+
 const ignColors = [
-  "#f56360",
-  "#ff6b00",
+  "#ffe7e7",
+  "#e6bc9e",
   "#ecbb48",
   "#53f27d",
   "#96c5e9",
@@ -14,11 +15,95 @@ function randomColor(){
   return ignColors[Math.floor(Math.random()*ignColors.length)]
 }
 
-async function fetchPosts(){
-  const res = await fetch('/posts/posts.json');
-  if(!res.ok) return [];
-  return await res.json();
+function shuffle(arr){
+  return arr
+    .map(v => ({v, r: Math.random()}))
+    .sort((a,b)=>a.r-b.r)
+    .map(({v})=>v)
 }
+
+async function fetchPosts(){
+  const res = await fetch('/posts/posts.json')
+  if(!res.ok) return []
+  return await res.json()
+}
+
+/* ===============================
+   HERO
+================================ */
+
+function renderHero(posts){
+
+  const hero = posts[0]
+
+  // random 4 posts excluding hero
+  const side = shuffle(
+    posts.filter(p => p.slug !== hero.slug)
+  ).slice(0,4)
+
+  const heroHtml = `
+  <div class="hero-card">
+
+    <a href="/${hero.slug}">
+
+      <img src="${hero.thumbnail}" alt="${hero.title}">
+
+      <h1 style="margin:12px 0 0">${hero.title}</h1>
+
+      <p style="color:#666;margin-top:8px">
+        ${hero.excerpt || ""}
+      </p>
+
+    </a>
+
+  </div>
+
+  <div class="hero-card small-list">
+
+  ${side.map(s=>{
+
+    const excerpt = s.excerpt || ""
+
+    const short =
+      excerpt.length > 80
+      ? excerpt.slice(0,80) + '... <span class="read-more">Read more</span>'
+      : excerpt
+
+    return `
+
+    <div class="small-post">
+
+      <a href="/${s.slug}" class="small-post-link">
+
+        <img src="${s.thumbnail}" class="small-thumb">
+
+        <div class="small-content">
+
+          <div class="cat">${s.category || 'News'}</div>
+
+          <h4 class="small-title">${s.title}</h4>
+
+          <p class="small-excerpt">${short}</p>
+
+        </div>
+
+      </a>
+
+    </div>
+
+    `
+
+  }).join("")}
+
+  </div>
+  `
+
+  document.getElementById("hero-section").innerHTML = heroHtml
+}
+
+/* ===============================
+   GRID CARDS
+================================ */
 
 function createCard(post){
 
@@ -26,7 +111,8 @@ function createCard(post){
 
   return `
   <article class="card">
-    <a href="/${post.slug}" style="text-decoration:none;color:inherit">
+
+    <a href="/${post.slug}">
 
       <img src="${post.thumbnail}" alt="${post.title}">
 
@@ -40,67 +126,19 @@ function createCard(post){
       </div>
 
     </a>
+
   </article>`
 }
 
-function uniq(arr){ return [...new Set(arr)]; }
+/* ===============================
+   LATEST LIST
+================================ */
 
-document.addEventListener('DOMContentLoaded', async ()=>{
-  const posts = await fetchPosts();
-  if(!posts || posts.length===0) {
-    document.getElementById('hero-section').innerHTML = '<div class="hero-card">No posts yet. Open /admin to create posts.</div>';
-    return;
-  }
-
-  // HERO = first post big + 2 side small posts
-  const hero = posts[0];
-  const side = posts.slice(1,4);
-
-  const heroHtml = `
-    <div class="hero-card">
-      <a href="/${hero.slug}" style="text-decoration:none;color:inherit">
-        <img src="${hero.thumbnail}" alt="${hero.title}">
-        <h1 style="margin:12px 0 0">${hero.title}</h1>
-        <p style="color:#666;margin-top:8px">${hero.excerpt || ''}</p>
-      </a>
-    </div>
-    <div class="hero-card small-list">
-      ${side.map(s=>`
-        <div class="card">
-          <a href="/${s.slug}" style="display:flex;gap:12px;text-decoration:none;color:inherit;padding:8px 0">
-            <img src="${s.thumbnail}" style="width:140px;height:84px;object-fit:cover;border-radius:6px">
-            <div>
-              <div class="cat">${s.category||'Lore'}</div>
-              <h4 style="margin:6px 0 0">${s.title}</h4>
-              <p style="color:#666;font-size:13px">${s.excerpt||''}</p>
-            </div>
-          </a>
-        </div>`).join('')}
-    </div>`;
-
-  document.getElementById('hero-section').innerHTML = heroHtml;
-
-  // GRID = next posts
-  const gridPosts = posts.slice(0,6);
-  document.getElementById('main-grid').innerHTML = gridPosts.map(createCard).join('');
-
-  // MORE section: older posts
-  if(posts.length>12){
-    document.getElementById('more-section').innerHTML =
-      `<h3>Older posts</h3><div class="grid">${posts.slice(12,20).map(createCard).join('')}</div>`;
-  }
-});
-
-// shared state
 let allPosts = []
 let filteredPosts = []
 
-let currentCategory = "latest"
-
 let index = 0
 const batchSize = 9
-
-
 
 function createListItem(post){
 
@@ -115,7 +153,7 @@ function createListItem(post){
 
     <div class="latest-content">
 
-      <a href="/${post.slug}" style="text-decoration:none;color:inherit">
+      <a href="/${post.slug}">
         <h3>${post.title}</h3>
       </a>
 
@@ -131,8 +169,6 @@ function createListItem(post){
 
   </article>`
 }
-
-
 
 function applyFilter(category){
 
@@ -166,8 +202,6 @@ function applyFilter(category){
   renderBatch()
 }
 
-
-
 function renderBatch(){
 
   const container = document.getElementById("posts-list")
@@ -185,6 +219,7 @@ function renderBatch(){
 
     const globalIndex = index + i + 1
 
+    // in-feed ad
     if(globalIndex % 5 === 0){
 
       html += `
@@ -192,9 +227,7 @@ function renderBatch(){
         <div class="ad-placeholder ad-728x90">
           AD 728 × 90
         </div>
-      </div>
-      `
-
+      </div>`
     }
 
   })
@@ -205,7 +238,6 @@ function renderBatch(){
 
   renderLoadMore()
 }
-
 
 function renderLoadMore(){
 
@@ -220,9 +252,11 @@ function renderLoadMore(){
     "afterend",
     `
     <div class="load-more-wrap">
+
       <button id="load-more-btn" class="load-more-btn">
         LOAD MORE
       </button>
+
     </div>
     `
   )
@@ -231,6 +265,10 @@ function renderLoadMore(){
     .getElementById("load-more-btn")
     .addEventListener("click", renderBatch)
 }
+
+/* ===============================
+   TABS
+================================ */
 
 function initTabs(){
 
@@ -244,8 +282,7 @@ function initTabs(){
 
         btn.classList.add("active")
 
-        const name =
-          btn.innerText.toLowerCase()
+        const name = btn.innerText.toLowerCase()
 
         applyFilter(name)
 
@@ -255,58 +292,30 @@ function initTabs(){
 
 }
 
+/* ===============================
+   INIT
+================================ */
 
-document.addEventListener('DOMContentLoaded', async ()=>{
+document.addEventListener("DOMContentLoaded", async ()=>{
 
   const posts = await fetchPosts()
 
-  if(!posts || posts.length===0){
-    return
-  }
+  if(!posts || posts.length===0) return
 
   allPosts = posts
 
   /* HERO */
-  const hero = posts[0]
-  const side = posts.slice(1,4)
-
-  const heroHtml = `
-  <div class="hero-card">
-    <a href="/${hero.slug}">
-      <img src="${hero.thumbnail}">
-      <h1>${hero.title}</h1>
-      <p>${hero.excerpt || ""}</p>
-    </a>
-  </div>
-  <div class="hero-card small-list">
-    ${side.map(s=>`
-      <div class="card">
-        <a href="/${s.slug}" style="display:flex;gap:12px">
-          <img src="${s.thumbnail}">
-          <div>
-            <div class="cat">${s.category}</div>
-            <h4>${s.title}</h4>
-          </div>
-        </a>
-      </div>`).join("")}
-  </div>`
-
-  document.getElementById("hero-section")
-    .innerHTML = heroHtml
-
+  renderHero(posts)
 
   /* GRID */
-
   const gridPosts = posts.slice(0,9)
 
   document.getElementById("main-grid")
     .innerHTML = gridPosts.map(createCard).join("")
 
-
-  /* INIT */
+  /* INIT UI */
 
   initTabs()
-
 
   applyFilter("latest")
 
