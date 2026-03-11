@@ -1,7 +1,5 @@
 // js/main.js
 // expects posts/posts.json structure: array of {title,slug,thumbnail,category,date,excerpt}
-// simple renderer for hero, trending, grid, sidebar
-
 const ignColors = [
   "#f56360",
   "#ff6b00",
@@ -85,10 +83,6 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   // GRID = next posts
   const gridPosts = posts.slice(0,6);
   document.getElementById('main-grid').innerHTML = gridPosts.map(createCard).join('');
-
-  // SIDEBAR trending list (top 6 titles)
-  const sideList = posts.slice(0,6).map(p=>`<li><a href="/${p.slug}">${p.title}</a></li>`).join('');
-  document.getElementById('sidebar-trending').innerHTML = sideList;
 
   // MORE section: older posts
   if(posts.length>12){
@@ -183,10 +177,29 @@ function renderBatch(){
     index + batchSize
   )
 
-  container.insertAdjacentHTML(
-    "beforeend",
-    slice.map(createListItem).join("")
-  )
+  let html = ""
+
+  slice.forEach((post,i)=>{
+
+    html += createListItem(post)
+
+    const globalIndex = index + i + 1
+
+    if(globalIndex % 5 === 0){
+
+      html += `
+      <div class="infeed-ad">
+        <div class="ad-placeholder ad-728x90">
+          AD 728 × 90
+        </div>
+      </div>
+      `
+
+    }
+
+  })
+
+  container.insertAdjacentHTML("beforeend", html)
 
   index += batchSize
 
@@ -284,18 +297,10 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
   /* GRID */
 
-  const gridPosts = posts.slice(0,6)
+  const gridPosts = posts.slice(0,9)
 
   document.getElementById("main-grid")
     .innerHTML = gridPosts.map(createCard).join("")
-
-
-  /* SIDEBAR */
-
-  document.getElementById("sidebar-trending")
-    .innerHTML = posts.slice(0,6)
-    .map(p=>`<li><a href="/${p.slug}">${p.title}</a></li>`)
-    .join("")
 
 
   /* INIT */

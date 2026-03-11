@@ -91,22 +91,6 @@ a{
   border-radius: 4px
 }
 
-.trending {
-  display: flex;
-  overflow: auto;
-  gap: 12px;
-  margin: 16px 0;
-  padding-bottom: 6px
-}
-
-.trending .chip {
-  background: #fff;
-  padding: 10px 14px;
-  border-radius: 999px;
-  border: 1px solid #eee;
-  white-space: nowrap
-}
-
 .content-wrap {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -159,7 +143,7 @@ a{
   background: #000;
   cursor: pointer;
 
-  aspect-ratio: 4/7;
+  aspect-ratio: 4/6.5;
 }
 
 .grid .card:hover {
@@ -284,9 +268,6 @@ a{
     grid-template-columns: repeat(1, 1fr)
   }
 
-  .trending {
-    gap: 8px
-  }
 }
 
 /* top banner ad */
@@ -470,4 +451,40 @@ a{
 
 .load-more-btn:hover{
   background:linear-gradient(#f02040,#d4112f);
+}
+
+.ad-300x600{
+  height:600px;
+}
+
+.bottom-ad{
+  margin:40px 0;
+  display:flex;
+  justify-content:center;
+}
+
+.ad-970x250{
+  width:970px;
+  height:250px;
+}
+
+.infeed-ad{
+  margin:30px 0;
+  display:flex;
+  justify-content:center;
+}
+
+.ad-728x90{
+  width:728px;
+  height:90px;
+}
+
+
+@media (max-width:760px){
+
+  .ad-728x90{
+    width:320px;
+    height:100px;
+  }
+
 }
