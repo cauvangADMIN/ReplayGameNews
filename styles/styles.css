@@ -317,8 +317,20 @@ a{
 
 /* CATEGORY BAR */
 
+/* Sticky category bar under the sticky header */
 .category-bar-wrapper{
-  margin:40px 0 10px;
+  position: sticky;
+  top: 60px;              /* = chiều cao header (điều chỉnh nếu khác) */
+  z-index: 39;            /* thấp hơn header (header đang 40) */
+  background: #f6f6f7;    /* cùng màu nền để tránh “xuyên” khi sticky */
+  padding-top: 8px;       /* giữ khoảng cách đẹp khi dính */
+  padding-bottom: 8px;
+  margin-top: 40px;
+}
+
+/* Khi sticky, thêm bóng nhẹ để tách lớp */
+.category-bar-wrapper.stuck{
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
 }
 
 .category-bar{
