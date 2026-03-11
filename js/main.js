@@ -166,6 +166,9 @@ function applyFilter(category){
 
   document.getElementById("posts-list").innerHTML = ""
 
+  const oldBtn = document.getElementById("load-more-btn")
+  if(oldBtn) oldBtn.remove()
+
   renderBatch()
 }
 
@@ -186,30 +189,34 @@ function renderBatch(){
   )
 
   index += batchSize
+
+  renderLoadMore()
 }
 
 
+function renderLoadMore(){
 
-function initInfiniteScroll(){
+  const container = document.getElementById("posts-list")
 
-  window.addEventListener("scroll",()=>{
+  const existing = document.getElementById("load-more-btn")
+  if(existing) existing.remove()
 
-    const scrollPos =
-      window.innerHeight + window.scrollY
+  if(index >= filteredPosts.length) return
 
-    const trigger =
-      document.body.offsetHeight - 800
+  container.insertAdjacentHTML(
+    "afterend",
+    `
+    <div class="load-more-wrap">
+      <button id="load-more-btn" class="load-more-btn">
+        LOAD MORE
+      </button>
+    </div>
+    `
+  )
 
-    if(scrollPos > trigger){
-
-      if(index < filteredPosts.length){
-        renderBatch()
-      }
-
-    }
-
-  })
-
+  document
+    .getElementById("load-more-btn")
+    .addEventListener("click", renderBatch)
 }
 
 function initTabs(){
@@ -295,7 +302,6 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
   initTabs()
 
-  initInfiniteScroll()
 
   applyFilter("latest")
 
