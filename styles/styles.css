@@ -568,3 +568,117 @@ a{
   margin-bottom:4px;
 
 }
+
+/* ===============================
+   MOBILE GRID CAROUSEL
+================================ */
+
+@media (max-width:640px){
+
+  #main-grid{
+
+    display:flex;
+    overflow-x:auto;
+    gap:18px;
+
+    scroll-snap-type:x mandatory;
+
+    padding-left:10px;
+    padding-right:40px;
+
+    -webkit-overflow-scrolling:touch;   /* momentum */
+
+    scroll-behavior:smooth;
+
+  }
+
+  #main-grid::-webkit-scrollbar{
+    display:none;
+  }
+
+  #main-grid .card{
+
+    flex:0 0 75%;
+
+    scroll-snap-align:start;
+
+    aspect-ratio:4/6;
+
+  }
+
+}
+
+@media (max-width:640px){
+
+  .latest-item{
+
+    gap:14px;
+    padding:16px 0;
+
+  }
+
+  .latest-thumb{
+
+    width:120px;
+    height:78px;
+
+    border-radius:6px;
+
+  }
+
+  .latest-content{
+    flex:1;
+  }
+
+  .latest-content h3{
+
+    font-size:16px;
+    line-height:1.35;
+
+    margin:0 0 4px;
+
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+
+  }
+
+  .latest-meta{
+
+    font-size:12px;
+    margin-bottom:4px;
+
+  }
+
+  .latest-excerpt{
+
+    font-size:13px;
+
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+
+  }
+
+  .latest-title{
+
+    font-size:26px;
+    margin-bottom:12px;
+
+  }
+
+  .category-bar-wrapper{
+
+    top:68px;           /* header height + khoảng cách */
+
+    padding-top:15px;
+
+  }
+
+  .category-bar-scroll{
+    display:none;
+  }
+
+}

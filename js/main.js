@@ -22,6 +22,45 @@ function shuffle(arr){
     .map(({v})=>v)
 }
 
+function initMobileCarousel(posts){
+
+  if(window.innerWidth > 640) return
+
+  const container = document.getElementById("main-grid")
+
+  const cards = container.querySelectorAll(".card")
+
+  container.addEventListener("scroll",()=>{
+    const cardWidth = cards[0].offsetWidth + 16
+    const index = Math.round(container.scrollLeft / cardWidth)
+  })
+
+  /* loop effect */
+
+  let autoScroll = setInterval(()=>{
+
+    const cardWidth = cards[0].offsetWidth + 16
+
+    if(container.scrollLeft + container.clientWidth >= container.scrollWidth - 5){
+
+      container.scrollTo({
+        left:0,
+        behavior:"smooth"
+      })
+
+    }else{
+
+      container.scrollBy({
+        left:cardWidth,
+        behavior:"smooth"
+      })
+
+    }
+
+  },5000)
+
+}
+
 async function fetchPosts(){
   const res = await fetch('/posts/posts.json')
   if(!res.ok) return []
@@ -310,8 +349,11 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   /* GRID */
   const gridPosts = posts.slice(0,9)
 
-  document.getElementById("main-grid")
-    .innerHTML = gridPosts.map(createCard).join("")
+  const gridContainer = document.getElementById("main-grid")
+
+  gridContainer.innerHTML = gridPosts.map(createCard).join("")
+
+  initMobileCarousel(gridPosts)
 
   /* INIT UI */
 
