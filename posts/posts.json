@@ -1,5 +1,13 @@
 [
   {
+    "title": "Movies",
+    "slug": "movies",
+    "thumbnail": "/images/ảnh-màn-hình-2026-03-06-lúc-09.05.10.jpg",
+    "category": "movies",
+    "date": "2026-03-11T09:26:00.000+07:00",
+    "excerpt": "dd"
+  },
+  {
     "title": "Technology",
     "slug": "technology",
     "thumbnail": "/images/ảnh-màn-hình-2026-01-21-lúc-15.37.50.jpg",
