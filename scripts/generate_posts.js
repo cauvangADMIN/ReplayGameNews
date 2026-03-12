@@ -25,6 +25,7 @@ const posts = files.map(file => {
 
   return {
     title: meta.title || "",
+    subtitle: meta.title || "",
     slug: meta.slug || file.replace(".md", ""),
     thumbnail: meta.thumbnail || "",
     category: meta.category || "",
