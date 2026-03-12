@@ -22,6 +22,93 @@ function shuffle(arr){
     .map(({v})=>v)
 }
 
+function renderRotatingMobileAd(){
+
+  const container = document.getElementById("mobile-rotating-ad")
+
+  if(!container) return
+
+  const isMobile = window.innerWidth <= 640
+
+  /* =========================
+     DESKTOP
+  ========================= */
+
+  if(!isMobile){
+
+    const adHtml = `
+
+      <div class="ad-box-wrapper">
+
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:300px;height:250px"
+             data-ad-client="ca-pub-XXXX"
+             data-ad-slot="XXXX"></ins>
+
+      </div>
+
+      <div class="ad-box-wrapper">
+
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:300px;height:600px"
+             data-ad-client="ca-pub-XXXX"
+             data-ad-slot="XXXX"></ins>
+
+      </div>
+
+    `
+
+    container.innerHTML = adHtml
+
+  }
+
+  /* =========================
+     MOBILE ROTATION
+  ========================= */
+
+  else{
+
+    let count = localStorage.getItem("adRotationCount") || 0
+    count = parseInt(count) + 1
+
+    localStorage.setItem("adRotationCount", count)
+
+    const useLarge = count % 2 === 0
+
+    let adHtml = ""
+
+    if(useLarge){
+
+      adHtml = `
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:300px;height:600px"
+             data-ad-client="ca-pub-XXXX"
+             data-ad-slot="XXXX"></ins>
+      `
+
+    }else{
+
+      adHtml = `
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:300px;height:250px"
+             data-ad-client="ca-pub-XXXX"
+             data-ad-slot="XXXX"></ins>
+      `
+
+    }
+
+    container.innerHTML = adHtml
+
+  }
+
+  /* Trigger AdSense render */
+
+  if(window.adsbygoogle){
+    (adsbygoogle = window.adsbygoogle || []).push({})
+  }
+
+}
+
 function initMobileCarousel(posts){
 
   if(window.innerWidth > 640) return
@@ -352,6 +439,8 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   const gridContainer = document.getElementById("main-grid")
 
   gridContainer.innerHTML = gridPosts.map(createCard).join("")
+
+  renderRotatingMobileAd()
 
   initMobileCarousel(gridPosts)
 
