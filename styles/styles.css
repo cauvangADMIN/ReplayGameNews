@@ -79,7 +79,8 @@ a{
   width: 100%;
   height: 320px;
   object-fit: cover;
-  border-radius: 6px
+  border-radius: 6px;
+  object-position: top center;
 }
 
 .hero .small-list .card {
@@ -412,16 +413,30 @@ a{
   text-decoration:none;
 }
 
+.latest-item:hover{
+  background:#f3f4f6;
+}
+
+.latest-item:hover h3{
+  color:#e50914;
+}
+
+.latest-item:hover .latest-thumb{
+  transform:scale(1.05);
+}
+
 .latest-thumb{
   width:240px;
   height:140px;
   object-fit:cover;
   border-radius:8px;
+  transition:transform .35s ease;
 }
 
 .latest-content h3{
   font-size:20px;
   margin:0 0 6px;
+  transition:color .2s;
 }
 
 .latest-meta{
@@ -616,7 +631,6 @@ a{
 @media (max-width:640px){
 
   .latest-item{
-
     gap:14px;
     padding:16px 0;
 
@@ -841,4 +855,64 @@ a{
     display:none;
   }
 
+}
+
+/* latest meta row */
+
+.latest-meta-row{
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  font-size:14px;
+  margin-top:4px;
+
+}
+
+/* category giống small-post */
+
+.latest-cat{
+
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+
+  color:#e50914;
+
+}
+
+/* date */
+
+.latest-meta{
+
+  color:#777;
+  font-size:13px;
+
+}
+
+/* excerpt inline */
+
+.latest-excerpt-inline{
+
+  color:#555;
+  font-size:14px;
+
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+
+}
+
+/* subtitle giống IGN */
+.latest-subtitle{
+  margin:6px 0 6px;
+  color:#555;
+  font-size:15px;
+  line-height:1.4;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
 }

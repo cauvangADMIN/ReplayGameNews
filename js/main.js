@@ -268,10 +268,14 @@ const batchSize = 9
 
 function createListItem(post){
 
+  const date = post.date
+    ? new Date(post.date).toISOString().slice(0,10)
+    : ""
+
   return `
   <article class="latest-item">
 
-    <a href="/${post.slug}">
+    <a href="/${post.slug}" class="latest-thumb-link">
       <img class="latest-thumb"
            src="${post.thumbnail}"
            alt="${post.title}">
@@ -283,12 +287,24 @@ function createListItem(post){
         <h3>${post.title}</h3>
       </a>
 
-      <div class="latest-meta">
-        ${post.date || ""}
-      </div>
+      <p class="latest-subtitle">
+        ${post.subtitle || ""}
+      </p>
 
-      <div class="latest-excerpt">
-        ${post.excerpt || ""}
+      <div class="latest-meta-row">
+
+        <span class="latest-cat">
+          ${post.category || 'News'}
+        </span>
+
+        <span class="latest-meta">
+          ${date}
+        </span>
+
+        <span class="latest-excerpt-inline">
+          ${post.excerpt || ""}
+        </span>
+        
       </div>
 
     </div>

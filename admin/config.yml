@@ -20,6 +20,7 @@ collections:
 
     fields:
       - { label: Title, name: title, widget: string }
+      - { label: Subtitle, name: subtitle, widget: string }
       - { label: Date, name: date, widget: datetime }
       - { label: Category, name: category, widget: string }
       - { label: Thumbnail, name: thumbnail, widget: image }
