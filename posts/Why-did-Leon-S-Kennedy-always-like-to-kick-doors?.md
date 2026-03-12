@@ -95,7 +95,6 @@ Còn game thủ thì gọi là: “Đá cửa cho nhanh.”
 Leon không chỉ đá cửa.
 
 Anh ta còn:
-
 * Nhảy qua cửa sổ
 * Đạp thang
 * Đá kẻ địch
@@ -120,6 +119,5 @@ Vì nếu bạn là chủ nhà… Và nghe thấy **BÙM** ngoài cửa…
 ![](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Resident%20Evil%20Capcom%20GIF.gif)
 
 Thì có hai khả năng:
-
 1. Zombie đang tới.
 2. Leon vừa tìm thấy nhà bạn.
