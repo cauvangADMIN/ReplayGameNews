@@ -29,8 +29,13 @@ a{
 }
 
 .site-header {
-  background: var(--bg);
-  border-bottom: 1px solid #eee;
+  /* background: var(--bg);
+  border-bottom: 1px solid #eee; */
+
+  background: linear-gradient(90deg, #121212, #1f1f1f);
+  border-bottom: 2px solid #e60023;
+  backdrop-filter: blur(8px);
+
   position: sticky;
   top: 0;
   z-index: 40
@@ -45,13 +50,13 @@ a{
 .logo {
   font-weight: 800;
   font-size: 20px;
-  color: var(--text);
+  color: white;
   text-decoration: none
 }
 
 .main-nav a {
   margin-left: 18px;
-  color: #333;
+  color: white;
   text-decoration: none;
   font-weight: 600
 }
