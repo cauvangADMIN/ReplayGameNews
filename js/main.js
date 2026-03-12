@@ -287,10 +287,6 @@ function createListItem(post){
         <h3>${post.title}</h3>
       </a>
 
-      <p class="latest-subtitle">
-        ${post.subtitle || ""}
-      </p>
-
       <div class="latest-meta-row">
 
         <span class="latest-cat">
@@ -306,6 +302,10 @@ function createListItem(post){
         </span>
         
       </div>
+
+      <p class="latest-subtitle">
+        ${post.subtitle || ""}
+      </p>
 
     </div>
 
