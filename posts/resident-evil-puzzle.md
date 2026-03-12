@@ -6,8 +6,7 @@ subtitle: Most people open doors with their hands. Leon S. Kennedy prefers
 date: 2026-03-06
 category: Lore
 thumbnail: /images/ảnh-màn-hình-2026-01-15-lúc-16.37.15.jpg
-excerpt: Giải thích thiết kế level, pacing và gameplay loop khiến series
-  Resident Evil đặt các đồ vật/khóa cửa theo kiểu puzzle.
+excerpt: Admin
 ---
 Resident Evil uses locking puzzles to control pacing, increase tension, and gate player progress...
 
