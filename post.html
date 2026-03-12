@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/styles/styles.css">
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
-
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossorigin="anonymous"></script>
   <script>
 
   // Get slug from query OR pretty URL
@@ -141,6 +141,21 @@
 
     }
 
+    // render top + bottom ads
+    /* trigger adsense */
+
+    if(window.adsbygoogle){
+
+      document
+      .querySelectorAll(".article-ad ins")
+      .forEach(()=> (adsbygoogle = window.adsbygoogle || []).push({}))
+
+      document
+      .querySelectorAll(".article-top-ad ins, .article-bottom-ad ins")
+      .forEach(()=> (adsbygoogle = window.adsbygoogle || []).push({}))
+
+    }
+
   }
 
   document.addEventListener("DOMContentLoaded", loadPost)
@@ -197,7 +212,7 @@
 </div>
 
 <footer class="site-footer container">
-  © <span id="year2"></span> GameLore
+  © <span id="year2"></span> ReplayGameNews
 </footer>
 
 <script>
