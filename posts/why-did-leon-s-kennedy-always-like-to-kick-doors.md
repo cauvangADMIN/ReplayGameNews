@@ -1,5 +1,7 @@
 ---
 title: Why did Leon S. Kennedy always like to kick doors?
+subtitle: Most people open doors with their hands. Leon S. Kennedy prefers
+  solving the problem with his boots.
 date: 2026-03-12T11:11:00.000+07:00
 category: games
 thumbnail: https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Resident%20Evil%20Flower%20GIF.gif
