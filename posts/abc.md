@@ -2,7 +2,7 @@
 title: Vì sao Leon S. Kennedy luôn thích đá cửa?
 date: 2026-03-10T10:09:00.000+07:00
 category: games
-thumbnail: /images/ảnh-màn-hình-2026-02-24-lúc-17.22.52.jpg
+thumbnail: https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Resident%20Evil%20Flower%20GIF.gif
 excerpt: Admin
 ---
 Nếu bạn từng chơi **Resident Evil 4** hoặc bản remake, chắc bạn đã nhận ra một điều:
