@@ -1,14 +1,16 @@
 [
   {
     "title": "Why did Leon S. Kennedy always like to kick doors?",
+    "subtitle": "Why did Leon S. Kennedy always like to kick doors?",
     "slug": "why-did-leon-s-kennedy-always-like-to-kick-doors",
     "thumbnail": "https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Resident%20Evil%20Flower%20GIF.gif",
     "category": "games",
-    "date": "2026-03-12T11:11:00.000+07:00",
+    "date": "2026-03-12T15:45:00.000+07:00",
     "excerpt": "Admin"
   },
   {
     "title": "Movies",
+    "subtitle": "Movies",
     "slug": "movies",
     "thumbnail": "/images/ảnh-màn-hình-2026-03-06-lúc-09.05.10.jpg",
     "category": "movies",
@@ -17,6 +19,7 @@
   },
   {
     "title": "Technology",
+    "subtitle": "Technology",
     "slug": "technology",
     "thumbnail": "/images/ảnh-màn-hình-2026-01-21-lúc-15.37.50.jpg",
     "category": "Technology",
@@ -25,6 +28,7 @@
   },
   {
     "title": "Characters",
+    "subtitle": "Characters",
     "slug": "characters",
     "thumbnail": "/images/ảnh-màn-hình-2026-03-06-lúc-09.05.10.jpg",
     "category": "characters",
@@ -33,6 +37,7 @@
   },
   {
     "title": "ffffffffffffff",
+    "subtitle": "ffffffffffffff",
     "slug": "ffffffffffffff",
     "thumbnail": "/images/ảnh-màn-hình-2026-02-24-lúc-17.22.52.jpg",
     "category": "movies",
@@ -41,6 +46,7 @@
   },
   {
     "title": "BBBBBBBBBBB",
+    "subtitle": "BBBBBBBBBBB",
     "slug": "bbbbbbbbbbb",
     "thumbnail": "/images/meme-meo-gian-doi-4.jpg",
     "category": "games",
@@ -49,6 +55,7 @@
   },
   {
     "title": "AHIHI",
+    "subtitle": "AHIHI",
     "slug": "ahihi",
     "thumbnail": "/images/ảnh-màn-hình-2026-01-21-lúc-15.37.50.jpg",
     "category": "games",
@@ -57,6 +64,7 @@
   },
   {
     "title": "Test",
+    "subtitle": "Test",
     "slug": "test",
     "thumbnail": "/images/ảnh-màn-hình-2026-03-09-lúc-17.00.49.jpg",
     "category": "x",
@@ -65,6 +73,7 @@
   },
   {
     "title": "Test post",
+    "subtitle": "Test post",
     "slug": "test-post",
     "thumbnail": "/images/ảnh-màn-hình-2026-03-06-lúc-09.05.10.jpg",
     "category": "lore",
@@ -73,6 +82,7 @@
   },
   {
     "title": "Vì sao Resident Evil thích khóa cửa bằng puzzle? ZZZZ",
+    "subtitle": "Vì sao Resident Evil thích khóa cửa bằng puzzle? ZZZZ",
     "slug": "resident-evil-puzzle",
     "thumbnail": "/images/ảnh-màn-hình-2026-01-15-lúc-16.37.15.jpg",
     "category": "Lore",
