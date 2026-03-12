@@ -147,6 +147,10 @@
         .forEach(()=> (adsbygoogle = window.adsbygoogle || []).push({}))
       }
 
+      document
+      .querySelectorAll(".sticky-ad ins")
+      .forEach(()=> (adsbygoogle = window.adsbygoogle || []).push({}))
+
     }
     catch(e){
 
@@ -180,6 +184,20 @@
 
 
 <body>
+
+<div class="sticky-ad sticky-left">
+  <ins class="adsbygoogle"
+       style="display:block;width:160px;height:600px"
+       data-ad-client="ca-pub-XXXX"
+       data-ad-slot="XXXX"></ins>
+</div>
+
+<div class="sticky-ad sticky-right">
+  <ins class="adsbygoogle"
+       style="display:block;width:160px;height:600px"
+       data-ad-client="ca-pub-XXXX"
+       data-ad-slot="XXXX"></ins>
+</div>
 
 <header class="site-header container">
   <a class="logo" href="/">ReplayGameNews</a>
