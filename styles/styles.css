@@ -681,8 +681,92 @@ a{
     display:none;
   }
 
+  .post-container{
+    padding:16px;
+  }
+
+  .post h1{
+    font-size:28px;
+  }
+
+  .post-body{
+    font-size:16px;
+    line-height:1.65;
+  }
+
+  .post-body img{
+    margin:18px auto;
+  }
+
 }
 
 .ad-box-wrapper{
   margin-bottom:18px;
+}
+
+/* ===============================
+   POST ARTICLE
+================================ */
+
+.post-container{
+  max-width:820px;
+}
+
+.post h1{
+  font-size:42px;
+  line-height:1.2;
+  margin-bottom:10px;
+}
+
+.post .meta{
+  color:#777;
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+/* article content */
+
+.post-body{
+  font-size:18px;
+  line-height:1.7;
+}
+
+/* responsive images */
+
+.post-body img{
+  max-width:100%;
+  height:auto;
+
+  display:block;
+  margin:26px auto;
+
+  border-radius:6px;
+}
+
+/* paragraphs spacing */
+
+.post-body p{
+  margin:18px 0;
+}
+
+/* headings */
+
+.post-body h2{
+  margin-top:40px;
+  font-size:28px;
+}
+
+.post-body h3{
+  margin-top:28px;
+  font-size:22px;
+}
+
+/* video embeds */
+
+.post-body iframe{
+  width:100%;
+  max-width:100%;
+  aspect-ratio:16/9;
+  border:none;
+  margin:24px 0;
 }

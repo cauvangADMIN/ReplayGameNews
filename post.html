@@ -95,8 +95,15 @@
         `${meta.date || ""} • ${meta.category || ""}`
 
       // Content
-      document.getElementById("post-content").innerHTML =
-        marked.parse(content)
+      const html = marked.parse(content)
+
+      const container = document.getElementById("post-content")
+      container.innerHTML = html
+
+      container.querySelectorAll("img").forEach(img=>{
+        img.loading = "lazy"
+        img.decoding = "async"
+      })
 
     }
     catch(e){
