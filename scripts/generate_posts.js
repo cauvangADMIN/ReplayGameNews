@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const matter = require("gray-matter");
 
 const postsDir = path.join(__dirname, "../posts");
 const output = path.join(postsDir, "posts.json");
@@ -8,29 +9,19 @@ const files = fs.readdirSync(postsDir).filter(f => f.endsWith(".md"));
 
 const posts = files.map(file => {
 
-  const content = fs.readFileSync(path.join(postsDir, file), "utf8");
+  const filePath = path.join(postsDir, file);
+  const content = fs.readFileSync(filePath, "utf8");
 
-  const match = content.match(/---([\s\S]*?)---/);
-
-  const meta = {};
-
-  if (match) {
-    match[1].split("\n").forEach(line => {
-      const [key, ...rest] = line.split(":");
-      if (key && rest.length) {
-        meta[key.trim()] = rest.join(":").trim();
-      }
-    });
-  }
+  const { data } = matter(content);
 
   return {
-    title: meta.title || "",
-    subtitle: meta.subtitle || "",
-    slug: meta.slug || file.replace(".md", ""),
-    thumbnail: meta.thumbnail || "",
-    category: meta.category || "",
-    date: meta.date || "",
-    excerpt: meta.excerpt || ""
+    title: data.title || "",
+    subtitle: data.subtitle || "",
+    slug: data.slug || file.replace(".md", ""),
+    thumbnail: data.thumbnail || "",
+    category: data.category || "",
+    date: data.date || "",
+    excerpt: data.excerpt || ""
   };
 
 });
