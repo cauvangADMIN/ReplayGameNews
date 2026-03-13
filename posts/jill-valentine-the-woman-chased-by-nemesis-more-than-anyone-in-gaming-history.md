@@ -8,8 +8,6 @@ category: games
 thumbnail: https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/jill-thumbnail.jpg
 excerpt: Admin
 ---
-
-
 ![](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Jill-re3.jpg)
 
 In horror games, characters usually run away from monsters.
@@ -226,15 +224,9 @@ There are mutated bio-weapons.
 
 There are giant creatures that should never exist.
 
-But Nemesis is special.
+Nemesis is special. Not because he is the strongest monster. But because he is **the most dedicated stalker in gaming history.**
 
-Not because he is the strongest monster.
-
-But because he is **the most dedicated stalker in gaming history.**
-
-And poor Jill Valentine spent nearly an entire game doing one very specific activity:
-
-**running away from a monster that refuses to take a day off.**
+And poor Jill Valentine spent nearly an entire game doing one very specific activity: **running away from a monster that refuses to take a day off.**
 
 Which means Jill Valentine may not only be one of the toughest survivors in Resident Evil.
 
