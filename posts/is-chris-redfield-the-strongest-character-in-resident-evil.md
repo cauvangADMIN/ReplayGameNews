@@ -18,20 +18,15 @@ Not push it.\
 Not roll it.\
 Not solve a puzzle around it.
 
-Chris Redfield looked at a massive rock blocking the path inside an active volcano… and decided the most logical solution was to **punch geology until it moved**.
-
-And somehow… it worked.
+Chris Redfield looked at a massive rock blocking the path inside an active volcano… and decided the most logical solution was to **punch geology until it moved**. And somehow… it worked.
 
 ![](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Resident_Evil_5_Review_Boulder_Punching_Fun.gif)
 
 From that moment on, the internet collectively agreed on one thing:
-
 Chris Redfield might actually be **the strongest human in the entire Resident Evil universe.**
 
 But is that really true?
-
 Let’s investigate.
-
 - - -
 
 ## What does "strongest" even mean in Resident Evil?
