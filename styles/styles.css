@@ -29,13 +29,9 @@ a{
 }
 
 .site-header {
-  /* background: var(--bg);
-  border-bottom: 1px solid #eee; */
-
   background: linear-gradient(90deg, #121212, #1f1f1f);
   border-bottom: 2px solid #e60023;
   backdrop-filter: blur(8px);
-
   position: sticky;
   top: 0;
   z-index: 40
@@ -502,6 +498,16 @@ a{
   height:90px;
 }
 
+
+#post-thumb{
+  width:100%;
+  max-height:420px;
+
+  object-fit:cover;
+  object-position:top center;
+
+  margin:12px 0;
+}
 
 @media (max-width:760px){
 
