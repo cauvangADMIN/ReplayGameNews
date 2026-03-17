@@ -1,5 +1,5 @@
 ---
-title: Why Joel’s Decision Changed the Entire World
+title: Why Joels Decision Changed the Entire World
 subtitle: One man standing in a hospital hallway with a gun in his hand. And
   what Joel decides to do inside the Firefly hospital doesn’t just change
   Ellie’s life.
