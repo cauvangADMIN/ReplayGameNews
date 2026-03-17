@@ -72,15 +72,6 @@
     "excerpt": "Admin"
   },
   {
-    "title": "Movies",
-    "subtitle": "",
-    "slug": "movies",
-    "thumbnail": "/images/ảnh-màn-hình-2026-03-06-lúc-09.05.10.jpg",
-    "category": "movies",
-    "date": "2026-03-11T02:26:00.000Z",
-    "excerpt": "dd"
-  },
-  {
     "title": "Technology",
     "subtitle": "",
     "slug": "technology",
@@ -88,42 +79,6 @@
     "category": "Technology",
     "date": "2026-03-11T02:26:00.000Z",
     "excerpt": "dd"
-  },
-  {
-    "title": "Characters",
-    "subtitle": "",
-    "slug": "characters",
-    "thumbnail": "/images/ảnh-màn-hình-2026-03-06-lúc-09.05.10.jpg",
-    "category": "characters",
-    "date": "2026-03-11T02:25:00.000Z",
-    "excerpt": "ddd"
-  },
-  {
-    "title": "ffffffffffffff",
-    "subtitle": "",
-    "slug": "ffffffffffffff",
-    "thumbnail": "/images/ảnh-màn-hình-2026-02-24-lúc-17.22.52.jpg",
-    "category": "movies",
-    "date": "2026-03-11T02:10:00.000Z",
-    "excerpt": "3313123123"
-  },
-  {
-    "title": "BBBBBBBBBBB",
-    "subtitle": "",
-    "slug": "bbbbbbbbbbb",
-    "thumbnail": "/images/meme-meo-gian-doi-4.jpg",
-    "category": "games",
-    "date": "2026-03-10T10:16:00.000Z",
-    "excerpt": "cccc"
-  },
-  {
-    "title": "AHIHI",
-    "subtitle": "",
-    "slug": "ahihi",
-    "thumbnail": "/images/ảnh-màn-hình-2026-01-21-lúc-15.37.50.jpg",
-    "category": "games",
-    "date": "2026-03-10T10:14:00.000Z",
-    "excerpt": "c"
   },
   {
     "title": "Test",
