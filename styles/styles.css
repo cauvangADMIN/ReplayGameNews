@@ -1030,3 +1030,44 @@ a{
 .article-bottom-ad ins{
   max-width:100%;
 }
+
+/* ===============================
+   FOOTER LINKS
+================================ */
+
+.footer-links{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  gap:10px;
+}
+
+.footer-nav{
+  display:flex;
+  justify-content:center;   /* 🔥 KEY */
+  align-items:center;
+  gap:16px;
+  width:auto;               /* 🔥 QUAN TRỌNG */
+}
+
+.footer-nav a{
+  color:#666;
+  font-size:14px;
+  font-weight:500;
+}
+
+.footer-nav a:hover{
+  color:#e50914;
+}
+
+.footer-nav a::after{
+  content:"•";
+  margin-left:10px;
+  color:#999;
+}
+
+.footer-nav a:last-child::after{
+  content:"";
+}
