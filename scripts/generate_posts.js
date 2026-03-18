@@ -21,7 +21,21 @@ const posts = files.map(file => {
     thumbnail: data.thumbnail || "",
     category: data.category || "",
     date: data.date || "",
-    excerpt: data.excerpt || ""
+    excerpt: data.excerpt || "",
+    // tags: nếu frontmatter có dạng YAML list thì data.tags có thể là array,
+    // nếu dùng CMS list thì sẽ là [{tag: "x"}, ...] — chuẩn hoá về mảng string
+    tags: (function(){
+      if(!data.tags) return [];
+      // nếu tags là mảng string
+      if(Array.isArray(data.tags) && typeof data.tags[0] === "string"){
+        return data.tags;
+      }
+      // nếu tags là mảng of objects [{tag: "x"}]
+      if(Array.isArray(data.tags) && typeof data.tags[0] === "object"){
+        return data.tags.map(t => t.tag || "").filter(Boolean);
+      }
+      return [];
+    })()
   };
 
 });

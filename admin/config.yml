@@ -25,4 +25,12 @@ collections:
       - { label: Category, name: category, widget: string }
       - { label: Thumbnail, name: thumbnail, widget: image }
       - { label: Excerpt, name: excerpt, widget: string }
+      - label: Tags
+        name: tags
+        widget: list
+        allow_add: true
+        field:
+          label: Tag
+          name: tag
+          widget: string
       - { label: Body, name: body, widget: markdown }

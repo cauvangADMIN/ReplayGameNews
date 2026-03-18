@@ -52,26 +52,54 @@
 
       const md = await res.text()
 
-      // Parse frontmatter
+      // Parse frontmatter robust hơn: tách --- yamL --- body
       const fmMatch = md.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/)
 
       let meta = {}
       let content = md
+      let fm = ""
 
       if(fmMatch){
 
-        const fm = fmMatch[1]
+        fm = fmMatch[1]
         content = fmMatch[2]
 
+        // parse simple key: value lines (fallback)
         fm.split("\n").forEach(line=>{
-
-          const [k,...rest] = line.split(":")
-
-          if(k && rest){
-            meta[k.trim()] = rest.join(":").trim()
+          const idx = line.indexOf(":")
+          if(idx > 0){
+            const k = line.slice(0, idx).trim()
+            const rest = line.slice(idx+1).trim()
+            if(k) meta[k] = rest
           }
-
         })
+
+        // parse tags robustly:
+        // 1) inline: tags: [a, b, "c"]
+        const inlineTags = fm.match(/tags:\s*\[([^\]]*)\]/)
+        if(inlineTags){
+          meta.tags = inlineTags[1]
+            .split(",")
+            .map(t=>t.trim().replace(/^['"]|['"]$/g,""))
+            .filter(Boolean)
+        } else {
+          // 2) block list:
+          // find tags: then subsequent lines starting with - 
+          const blockMatch = fm.match(/tags:\s*\n((?:\s*-\s*.*\n?)+)/)
+          if(blockMatch){
+            meta.tags = blockMatch[1]
+              .split("\n")
+              .map(l => l.trim())
+              .filter(Boolean)
+              .map(l => l.replace(/^-+\s*/,"").trim())
+              .filter(Boolean)
+          } else {
+            // fallback if tags was parsed earlier as "tag1, tag2"
+            if(meta.tags && typeof meta.tags === "string" && meta.tags.indexOf(",") !== -1){
+              meta.tags = meta.tags.split(",").map(t=>t.trim()).filter(Boolean)
+            }
+          }
+        }
 
       }
 
@@ -81,28 +109,37 @@
 
       // Thumbnail
       if(meta.thumbnail){
-
         document.getElementById("post-thumb").src = meta.thumbnail
-
       } else {
-
         document.getElementById("post-thumb").style.display = "none"
-
       }
 
-      // Meta
+      // Meta row
       document.getElementById("post-meta").innerText =
         `${meta.date || ""} • ${meta.category || ""}`
 
       // Content
       const html = marked.parse(content)
-
       const container = document.getElementById("post-content")
-
       container.innerHTML = html
 
-      const paragraphs = container.querySelectorAll("p")
+      // render tags (below content)
+      const tagsContainer = document.getElementById("post-tags")
+      if(meta.tags && Array.isArray(meta.tags) && meta.tags.length){
+        tagsContainer.setAttribute("aria-hidden", "false")
+        tagsContainer.innerHTML = `
+          <div class="tags-title">Tags:</div>
+          <div class="tags-row">
+            ${meta.tags.map(t=>`<a class="tag" href="/?tag=${encodeURIComponent(t)}">${t}</a>`).join("")}
+          </div>
+        `
+      } else {
+        tagsContainer.setAttribute("aria-hidden", "true")
+        tagsContainer.innerHTML = ""
+      }
 
+      // insert in-article ads (existing logic)
+      const paragraphs = container.querySelectorAll("p")
       let insertedAds = 0
       let lastAdIndex = -10
 
@@ -121,9 +158,7 @@
         if(next && next.tagName === "IMG") return
 
         const ad = document.createElement("div")
-
         ad.className = "article-ad"
-
         ad.innerHTML = `
           <ins class="adsbygoogle"
               style="display:block"
@@ -132,24 +167,20 @@
               data-ad-format="auto"
               data-full-width-responsive="true"></ins>
         `
-
         p.after(ad)
-
         insertedAds++
         lastAdIndex = i
 
       })
 
       /* trigger adsense */
-
       if(window.adsbygoogle){
         document.querySelectorAll(".article-ad ins")
         .forEach(()=> (adsbygoogle = window.adsbygoogle || []).push({}))
       }
 
-      document
-      .querySelectorAll(".sticky-ad ins")
-      .forEach(()=> (adsbygoogle = window.adsbygoogle || []).push({}))
+      // Render related posts (right after content & tags)
+      renderRelatedPosts((meta.category || "").toLowerCase(), slug)
 
     }
     catch(e){
@@ -159,11 +190,8 @@
 
     }
 
-    // render top + bottom ads
-    /* trigger adsense */
-
+    // render top + bottom ads (kept)
     if(window.adsbygoogle){
-
       document
       .querySelectorAll(".article-ad ins")
       .forEach(()=> (adsbygoogle = window.adsbygoogle || []).push({}))
@@ -174,6 +202,96 @@
 
     }
 
+  } // end loadPost()
+
+  /***** RELATED POSTS RENDERER *****/
+
+  async function renderRelatedPosts(category, currentSlug){
+
+    const container = document.getElementById("related-posts")
+    if(!container) return
+
+    try{
+      const res = await fetch("/posts/posts.json")
+      if(!res.ok) {
+        container.innerHTML = ""
+        return
+      }
+      let posts = await res.json()
+
+      // normalize category and filter same category (case-insensitive)
+      const sameCat = posts.filter(p => (p.category || "").toLowerCase() === (category || "").toLowerCase() && p.slug !== currentSlug)
+
+      if(sameCat.length === 0){
+        // fallback: choose any except current
+        posts = posts.filter(p => p.slug !== currentSlug)
+        // small random sample
+        posts = shuffle(posts).slice(0,8)
+      } else {
+        posts = shuffle(sameCat).slice(0,12)
+      }
+
+      if(posts.length === 0){
+        container.innerHTML = ""
+        return
+      }
+
+      // build slider HTML
+      container.innerHTML = `
+        <h3 class="related-title">Related posts</h3>
+
+        <div class="related-controls desktop-only">
+          <button id="rel-prev" class="rel-btn">‹</button>
+          <button id="rel-next" class="rel-btn">›</button>
+        </div>
+
+        <div class="related-track" id="related-track">
+          ${posts.map(p => `
+            <article class="card related-card">
+              <a href="/${p.slug}">
+                <img src="${p.thumbnail}" alt="${p.title}">
+                <div class="card-color" style="background:${randomColor()}"></div>
+                <div class="card-content">
+                  <div class="cat">${p.category || ''}</div>
+                  <h3>${p.title}</h3>
+                </div>
+              </a>
+            </article>
+          `).join("")}
+        </div>
+      `
+
+      // init controls
+      const track = document.getElementById("related-track")
+      const prev = document.getElementById("rel-prev")
+      const next = document.getElementById("rel-next")
+
+      // desktop next/prev behavior
+      function scrollByViewport(multiplier = 1){
+        const card = track.querySelector(".related-card")
+        if(!card) return
+        const gap = parseInt(getComputedStyle(track).gap || 16)
+        const cardW = card.offsetWidth + gap
+        const visible = Math.floor(track.clientWidth / cardW) || 1
+        track.scrollBy({ left: cardW * visible * multiplier, behavior: "smooth" })
+      }
+
+      if(prev && next){
+        prev.addEventListener("click", ()=> scrollByViewport(-1))
+        next.addEventListener("click", ()=> scrollByViewport(1))
+      }
+
+      // enable smooth loop on mobile auto scroll (optional)
+      // ensure ads in related cards (none) – no ad handling needed
+
+    }catch(err){
+      console.error("related error", err)
+    }
+  }
+
+  // helper: shuffle (reuse earlier function or re-declare)
+  function shuffle(arr){
+    return arr.map(v => ({v, r: Math.random()})).sort((a,b)=>a.r-b.r).map(({v})=>v)
   }
 
   document.addEventListener("DOMContentLoaded", loadPost)
@@ -225,6 +343,14 @@
     </div>
 
     <div id="post-content" class="post-body"></div>
+
+    <!-- TAGS -->
+    <div id="post-tags" class="post-tags" aria-hidden="true"></div>
+
+    <!-- RELATED POSTS (slider) -->
+    <section id="related-posts" class="related-posts">
+      <!-- filled by JS -->
+    </section>
 
   </article>
 

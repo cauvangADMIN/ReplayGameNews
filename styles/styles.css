@@ -903,3 +903,105 @@ a{
   }
 
 }
+
+/* ===============================
+   POST TAGS
+================================ */
+.post-tags{
+  max-width:760px;
+  margin:24px auto;
+  padding:12px 16px;
+  background: #fff;
+  border-radius:8px;
+  box-shadow: 0 6px 18px rgba(30,30,30,0.03);
+}
+
+.post-tags .tags-title{
+  font-weight:700;
+  margin-bottom:8px;
+  color:#333;
+}
+
+.tags-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.tag{
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:20px;
+  background:#f1f1f2;
+  font-size:13px;
+  text-decoration:none;
+  color:#333;
+  border:1px solid #e6e6e6;
+}
+
+/* hover */
+.tag:hover{
+  background:#e9e9eb;
+  color:#111;
+}
+
+/* ===============================
+   RELATED POSTS SLIDER
+================================ */
+
+.related-posts{
+  max-width:1100px;
+  margin:28px auto;
+  padding:8px 0 18px;
+}
+
+.related-title{
+  font-size:20px;
+  font-weight:800;
+  margin:6px 0 12px;
+}
+
+.related-controls{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-bottom:8px;
+}
+
+.rel-btn{
+  border:none;
+  background:#111;
+  color:#fff;
+  width:36px;
+  height:36px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:20px;
+  line-height:1;
+}
+
+/* track */
+.related-track{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding-bottom:8px;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* each related card smaller */
+.related-card{
+  flex:0 0 220px; /* adjust for desktop visible items */
+  scroll-snap-align:start;
+  aspect-ratio:4/5;
+}
+
+/* hide desktop controls on small screens */
+.desktop-only{ display:none; }
+
+@media (min-width: 980px){
+  .related-card{ flex:0 0 260px; }
+  .desktop-only{ display:flex; }
+  .related-track{ gap:22px; }
+}
