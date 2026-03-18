@@ -173,7 +173,7 @@ a{
   bottom: 0;
   left: 0;
   right: 0;
-  height: 120px;
+  height: 40%;   /* thay vì 120px */
   opacity: .9;
   mix-blend-mode: multiply;
 }
@@ -982,19 +982,30 @@ a{
 
 /* track */
 .related-track{
+
   display:flex;
-  gap:18px;
   overflow-x:auto;
+  gap:18px;
   scroll-snap-type:x mandatory;
-  padding-bottom:8px;
+  padding-left:10px;
+  padding-right:40px;
   -webkit-overflow-scrolling:touch;
+  scroll-behavior:smooth;
+
 }
 
-/* each related card smaller */
+.related-track::-webkit-scrollbar{
+  display:none;
+}
+
 .related-card{
-  flex:0 0 220px; /* adjust for desktop visible items */
+  flex:0 0 75%;
   scroll-snap-align:start;
-  aspect-ratio:4/5;
+  aspect-ratio:4/6;
+}
+
+.related-card img{
+  object-position: top center;
 }
 
 /* hide desktop controls on small screens */
