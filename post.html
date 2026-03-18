@@ -31,6 +31,19 @@
     return slug
   }
 
+  const ignColors = [
+    "#ffe7e7",
+    "#e6bc9e",
+    "#ecbb48",
+    "#53f27d",
+    "#96c5e9",
+    "#c362ec",
+    "#27f5da"
+  ];
+
+  function randomColor(){
+    return ignColors[Math.floor(Math.random() * ignColors.length)];
+  }
 
   async function loadPost(){
 
