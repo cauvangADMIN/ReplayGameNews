@@ -1,5 +1,6 @@
 self.options = {
     "domain": "5gvci.com",
+    "zoneId": 10746943,
     "zoneId": 10747017
 }
 self.lary = ""

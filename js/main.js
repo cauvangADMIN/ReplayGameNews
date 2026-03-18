@@ -408,6 +408,41 @@ function renderLoadMore(){
     .addEventListener("click", renderBatch)
 }
 
+function initNavScroll(){
+
+  const btn = document.getElementById("nav-latest")
+  const target = document.getElementById("category-section")
+
+  if(!btn || !target) return
+
+  btn.addEventListener("click",(e)=>{
+
+    e.preventDefault()
+
+    // scroll mượt
+    const y = target.getBoundingClientRect().top + window.scrollY - 70
+
+    window.scrollTo({
+      top: y,
+      behavior:"smooth"
+    })
+
+    // auto select tab Latest
+    document.querySelectorAll(".cat-tab")
+      .forEach(b=>b.classList.remove("active"))
+
+    const latestTab = [...document.querySelectorAll(".cat-tab")]
+      .find(b => b.innerText.toLowerCase() === "latest")
+
+    if(latestTab){
+      latestTab.classList.add("active")
+      applyFilter("latest")
+    }
+
+  })
+
+}
+
 /* ===============================
    TABS
 ================================ */
@@ -463,7 +498,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   /* INIT UI */
 
   initTabs()
-
+  initNavScroll()
   applyFilter("latest")
 
 })
