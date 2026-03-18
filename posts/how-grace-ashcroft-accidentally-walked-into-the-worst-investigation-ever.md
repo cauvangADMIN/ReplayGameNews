@@ -6,6 +6,11 @@ date: 2026-03-13T16:25:00.000+07:00
 category: games
 thumbnail: https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/grace-6.jpg
 excerpt: Admin
+tags:
+  - resident evil
+  - requiem
+  - grace ashcroft
+  - racoon city
 ---
 If you work for the FBI, your job usually involves things like:
 
