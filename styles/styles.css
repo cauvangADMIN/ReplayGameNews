@@ -955,6 +955,13 @@ a{
   padding:8px 0 18px;
 }
 
+.related-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+
 .related-title{
   font-size:20px;
   font-weight:800;
@@ -963,9 +970,8 @@ a{
 
 .related-controls{
   display:flex;
-  justify-content:flex-end;
   gap:8px;
-  margin-bottom:8px;
+  margin:0;
 }
 
 .rel-btn{
@@ -978,6 +984,10 @@ a{
   cursor:pointer;
   font-size:20px;
   line-height:1;
+}
+
+.rel-btn:hover{
+  background:#e50914;
 }
 
 /* track */

@@ -251,11 +251,13 @@
 
       // build slider HTML
       container.innerHTML = `
-        <h3 class="related-title">Related posts</h3>
+        <div class="related-header">
+          <h3 class="related-title">Related posts</h3>
 
-        <div class="related-controls desktop-only">
-          <button id="rel-prev" class="rel-btn">‹</button>
-          <button id="rel-next" class="rel-btn">›</button>
+          <div class="related-controls desktop-only">
+            <button id="rel-prev" class="rel-btn">‹</button>
+            <button id="rel-next" class="rel-btn">›</button>
+          </div>
         </div>
 
         <div class="related-track grid" id="related-track">
