@@ -1026,3 +1026,7 @@ a{
   .desktop-only{ display:flex; }
   .related-track{ gap:22px; }
 }
+
+.article-bottom-ad ins{
+  max-width:100%;
+}
