@@ -6,7 +6,8 @@
     "thumbnail": "https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Freya-thumb.jpg",
     "category": "characters",
     "date": "2026-03-17T15:39:00.000Z",
-    "excerpt": "Admin"
+    "excerpt": "Admin",
+    "tags": []
   },
   {
     "title": "Why Joels Decision Changed the Entire World",
@@ -15,7 +16,8 @@
     "thumbnail": "https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/the-last-thumb.jpg",
     "category": "characters",
     "date": "2026-03-17T09:24:00.000Z",
-    "excerpt": "Admin"
+    "excerpt": "Admin",
+    "tags": []
   },
   {
     "title": "Why Baldur Hated His Own Mother",
@@ -24,7 +26,8 @@
     "thumbnail": "https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/baldur-thumb.jpg",
     "category": "characters",
     "date": "2026-03-17T04:11:00.000Z",
-    "excerpt": "Admin"
+    "excerpt": "Admin",
+    "tags": []
   },
   {
     "title": "The Secret Prophecy About Kratos and Loki",
@@ -33,7 +36,8 @@
     "thumbnail": "https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/GOW-thumb.jpg",
     "category": "characters",
     "date": "2026-03-17T03:17:00.000Z",
-    "excerpt": "Admin"
+    "excerpt": "Admin",
+    "tags": []
   },
   {
     "title": "How Grace Ashcroft Accidentally Walked Into the Worst Investigation Ever",
@@ -42,7 +46,13 @@
     "thumbnail": "https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/grace-6.jpg",
     "category": "games",
     "date": "2026-03-13T09:25:00.000Z",
-    "excerpt": "Admin"
+    "excerpt": "Admin",
+    "tags": [
+      "resident evil",
+      "requiem",
+      "grace ashcroft",
+      "racoon city"
+    ]
   },
   {
     "title": "Why Every Resident Evil Building Is Full of Puzzles",
@@ -51,7 +61,8 @@
     "thumbnail": "https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/re-9-thumb.jpg",
     "category": "games",
     "date": "2026-03-13T07:58:00.000Z",
-    "excerpt": "Admin"
+    "excerpt": "Admin",
+    "tags": []
   },
   {
     "title": "Jill Valentine: The Woman Chased by Nemesis More Than Anyone in Gaming History",
@@ -60,7 +71,8 @@
     "thumbnail": "https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/jill-thumbnail.jpg",
     "category": "games",
     "date": "2026-03-13T04:50:00.000Z",
-    "excerpt": "Admin"
+    "excerpt": "Admin",
+    "tags": []
   },
   {
     "title": "Is Chris Redfield the Strongest Character in Resident Evil?",
@@ -69,7 +81,8 @@
     "thumbnail": "https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Christ-Redfield-thumbnail.jpg",
     "category": "games",
     "date": "2026-03-13T02:59:00.000Z",
-    "excerpt": "Admin"
+    "excerpt": "Admin",
+    "tags": []
   },
   {
     "title": "Why did Leon S. Kennedy always like to kick doors?",
@@ -78,6 +91,7 @@
     "thumbnail": "https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Resident%20Evil%20Flower%20GIF.gif",
     "category": "games",
     "date": "2026-03-12T08:45:00.000Z",
-    "excerpt": "Admin"
+    "excerpt": "Admin",
+    "tags": []
   }
 ]
