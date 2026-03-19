@@ -12,7 +12,7 @@ tags:
   - vergil dmc
   - dmc
 ---
-![Dante sitting alone in Devil May Cry shop, dark lighting, melancholic mood](IMAGE_PLACEHOLDER)
+![Dante sitting alone in Devil May Cry shop, dark lighting, melancholic mood](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/dante-2.jpg)
 
 At first glance, Dante seems unstoppable.
 
@@ -31,7 +31,7 @@ You start to notice something strange.
 
 ## The Night That Destroyed His Life
 
-![Young Dante and Eva attacked by demons, burning house, emotional scene](IMAGE_PLACEHOLDER)
+![Young Dante and Eva attacked by demons, burning house, emotional scene](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/dante-1.jpg)
 
 Dante wasn’t born a hero.
 
@@ -52,7 +52,7 @@ Imagine that. You lose your family… And the only person left who understands y
 
 ## A Life Spent Running… And Fighting
 
-![Dante young mercenary Tony Redgrave wandering alone city night](IMAGE_PLACEHOLDER)
+![Dante young mercenary Tony Redgrave wandering alone city night](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/dante-10.jpg)
 
 After the attack, Dante didn’t become a hero. He became a survivor.
 
@@ -76,7 +76,7 @@ Because normal life… wasn’t possible anymore.
 
 ## Why He Hunts Demons
 
-![Dante fighting demons stylish combat red coat action](IMAGE_PLACEHOLDER)
+![Dante fighting demons stylish combat red coat action](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/dante-3.jpg)
 
 On the surface, Dante is a demon hunter.
 
@@ -99,7 +99,7 @@ Without it? He has nothing left.
 
 ## The Mask of “Cool Dante”
 
-![Dante joking pizza scene Devil May Cry anime style](IMAGE_PLACEHOLDER)
+![Dante joking pizza scene Devil May Cry anime style](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/dante-4.jpg)
 
 This is where most people misunderstand him.
 
@@ -129,7 +129,7 @@ That’s what got everything taken from him.
 
 ## The Brother He Could Never Save
 
-![Dante vs Vergil rain duel dramatic blue red contrast](IMAGE_PLACEHOLDER)
+![Dante vs Vergil rain duel dramatic blue red contrast](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/dante-7.jpg)
 
 Then there’s Vergil.
 
@@ -155,11 +155,9 @@ They fight.
 
 ## The Curse of Being Half Demon
 
-![Dante devil trigger transformation glowing demonic form](IMAGE_PLACEHOLDER)
+![Dante devil trigger transformation glowing demonic form](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/dante-5.jpg)
 
-Dante isn’t fully human.
-
-And that’s the problem.
+Dante isn’t fully human. And that’s the problem.
 
 Because it means:
 
@@ -178,7 +176,7 @@ But it’s also what isolates him.
 
 ## He Saves Everyone… Except Himself
 
-![Dante protecting civilians while standing alone after battle](IMAGE_PLACEHOLDER)
+![Dante protecting civilians while standing alone after battle](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/dante-6.jpg)
 
 Throughout the series, Dante does something consistent:
 
@@ -200,17 +198,15 @@ Even when he wins… The world moves on. And Dante is left behind.
 
 ## “Devils Never Cry” — The Saddest Line
 
-![Dante close up emotional face rain scene](IMAGE_PLACEHOLDER)
+![Dante close up emotional face rain scene](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/dante-12.jpg)
 
 Dante often says:
 
 > “Devils never cry.”
+>
+> It sounds cool. But the meaning is devastating.
 
-It sounds cool. But the meaning is devastating.
-
-Because Dante **can** cry.
-
-Which means: He’s still human.
+Because Dante **can** cry. Which means: He’s still human.
 
 And being human means:
 
@@ -218,17 +214,15 @@ And being human means:
 * Feeling every loss  
 * Carrying every scar  
 
-> His humanity is not his strength.\
-> It’s his burden.
+His humanity is not his strength. It’s his burden.
 
 - - -
 
 ## Dante vs Vergil — Two Broken Paths
 
-![Dante vs Vergil split screen contrast red vs blue symbolism](IMAGE_PLACEHOLDER)
+![Dante vs Vergil split screen contrast red vs blue symbolism](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/dante-9.jpg)
 
-Same childhood.\
-Same trauma.
+Same childhood. Same trauma.
 
 Two completely different outcomes.
 
@@ -246,7 +240,7 @@ They just chose different ways to break.
 
 ## Why Dante Is Actually Tragic
 
-![Dante walking alone sunset silhouette long coat](IMAGE_PLACEHOLDER)
+![Dante walking alone sunset silhouette long coat](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/dante-8.jpg)
 
 Dante isn’t tragic because he failed.
 
