@@ -13,13 +13,19 @@ She helps Kratos and Atreus.\
 She heals Atreus when he is dying.\
 She guides them through the dangerous realms of Norse mythology.
 
-At first, she seems wise, calm, and compassionate. But as the story unfolds, players slowly discover a darker truth.
+At first, she seems wise, calm, and compassionate.
 
-Freya’s past is filled with betrayal, curses, and impossible choices.
+But as the story unfolds, players begin to realize something deeper.
 
-By the end of the game, she loses the one person she loved the most. Her own son.
+Freya is not just a helpful character.
 
-And that’s why Freya might be one of the most tragic characters in the entire **God of War** universe.
+> She is someone who has already lost everything… and is desperately trying not to lose again.
+
+By the end of the game, she loses the one person she loved the most.
+
+Her own son.
+
+And that’s what transforms her from ally… into one of the most tragic figures in the entire **God of War** universe.
 
 - - -
 
@@ -27,21 +33,36 @@ And that’s why Freya might be one of the most tragic characters in the entire 
 
 ![Freya and Odin concept art](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Freya-1.jpg)
 
-Long before Kratos arrived in the Norse realms, Freya was one of the most powerful gods among the **Vanir**.
+Long before Kratos arrived, Freya was one of the most powerful gods among the **Vanir**.
 
-She was a master of Vanir magic and a respected leader in her homeland of Vanaheim.
+She was not just a mage.
 
-But during a war between the **Aesir** and the **Vanir**, peace was negotiated through a political marriage.
+She was a leader. A strategist. A goddess of love, war, and powerful magic.
 
-Freya was forced to marry **Odin**, the ruler of Asgard. For a short time, their relationship appeared genuine.
+But during the war between the **Aesir** and the **Vanir**, peace came at a cost.
 
-But Odin’s obsession with power and knowledge quickly poisoned the marriage.
+Freya was forced into a political marriage with **Odin**.
 
-He became paranoid about prophecy and Ragnarök. He manipulated Freya’s magic.
+At first, it seemed like a solution.
 
-And he committed terrible acts against the giants in his search for control over fate.
+In reality, it was the beginning of her downfall.
 
-Eventually, Freya realized the truth. She had married a monster.
+Odin wasn’t interested in peace.
+
+He was obsessed with:
+
+* prophecy  
+* control  
+* preventing Ragnarök  
+
+He manipulated Freya’s magic.  
+He exploited her knowledge.  
+And he committed atrocities to control fate.
+
+Eventually, Freya realized the truth:
+
+> She didn’t marry a king.\
+> She married someone who would sacrifice anything for power.
 
 - - -
 
@@ -49,17 +70,35 @@ Eventually, Freya realized the truth. She had married a monster.
 
 ![Freya Valkyrie wings scene](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Freya-2.jpg)
 
-When Freya tried to leave Odin, he didn’t let her go peacefully.
+When Freya tried to leave Odin, he didn’t let her go.
 
-Instead, Odin cursed her. He stripped away her Valkyrie wings. He prevented her from ever leaving **Midgard**.
+He punished her.
 
-And worst of all, he placed a spell on her that made it impossible for her to harm any living creature.
+Brutally.
 
-For a warrior goddess, this was a cruel fate. Freya was forced to live in isolation, unable to fight, unable to defend herself, and unable to return to her homeland.
+According to the game’s lore:
 
-Many in Vanaheim even believed she had betrayed them. So she lost her freedom. Her power. And her people.
+* He stripped her of her Valkyrie wings  
+* He trapped her in Midgard  
+* He cast a spell preventing her from harming any living being  
 
-But she still had one thing left. Her son.
+For a warrior goddess, this wasn’t just exile.
+
+It was erasure.
+
+She lost:
+
+* her power  
+* her freedom  
+* her identity  
+
+And to make things worse…
+
+Many of her own people believed she had betrayed them.
+
+> She became a prisoner in a world that no longer trusted her.
+
+But even then… She still had one reason to keep going. Her son.
 
 - - -
 
@@ -67,19 +106,28 @@ But she still had one thing left. Her son.
 
 ![Young Baldur concept scene](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Freya-3.jpg)
 
-Freya loved her son **Baldur** more than anything. But then she learned about a prophecy.
+Freya loved her son **Baldur** more than anything.
 
-The prophecy said Baldur would die a meaningless death. For a mother who had already lost everything, this was unbearable.
+But then she learned something that shattered her. A prophecy.
 
-So Freya turned to the only power she had left. Magic.
+It said Baldur would die a meaningless death.
 
-She cast an incredibly powerful spell on Baldur.
+In Norse myth and in *God of War*, prophecy is not just prediction.
 
-The spell made him **completely invulnerable**.
+It is inevitability. And Freya refused to accept it.
 
-No weapon could harm him. No magic could kill him.
+So she used Vanir magic to do the impossible.
 
-In theory, Baldur would live forever. But the spell had a terrible side effect.
+She cast a spell that made Baldur completely invulnerable.
+
+No weapon could harm him.  
+No magic could kill him.  
+
+She believed she had defeated fate.
+
+But she didn’t realize something crucial:
+
+> She had changed how Baldur would suffer.
 
 - - -
 
@@ -87,33 +135,36 @@ In theory, Baldur would live forever. But the spell had a terrible side effect.
 
 ![Baldur emotionless scene](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Freya-4.jpg)
 
-Freya’s spell didn’t just make Baldur immortal.
+Freya’s spell didn’t just protect Baldur.
 
-It also removed all sensation from his body.
+It removed his ability to feel.
 
-Baldur could no longer feel:
+He couldn’t feel:
 
 * pain  
 * warmth  
-* cold  
-* taste  
 * touch  
+* anything at all  
 
-He couldn’t feel anything at all.
+This is confirmed in the game’s lore — Baldur’s immortality came at the cost of all sensation.  
 
-At first Freya believed she had saved him. But Baldur saw it very differently.
+At first, Freya believed she had saved him.
 
-To him, life had become a prison. Imagine living for centuries unable to experience the world.
+But Baldur experienced it differently.
 
-No pleasure.
+To him:
 
-No comfort.
+> Existence itself became torture.
 
-No connection to reality.
+Imagine living for over a century with no sensation.
 
-Baldur begged his mother to remove the spell. But Freya refused.
+No comfort.  
+No connection.  
+No reality.
 
-Because removing it meant Baldur could die. And Freya could not bear that possibility.
+Baldur didn’t want immortality. He wanted to feel alive again.
+
+And the only person who could fix it… Refused.
 
 - - -
 
@@ -121,19 +172,27 @@ Because removing it meant Baldur could die. And Freya could not bear that possib
 
 ![Baldur rage scene](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Freya-6.jpg)
 
-Over time, Baldur’s frustration turned into hatred.
+Over time, Baldur’s pain turned into something else.
 
-He blamed Freya for stealing his life.
+Hatred. He didn’t just blame Freya.
 
-He believed she cared more about her fear of losing him than about his suffering.
+He resented her. Because from his perspective:
 
-Eventually, Baldur swore that he would never forgive her.
+> She chose her fear over his suffering.
 
-He even attempted to kill her. But he couldn’t bring himself to do it.
+There’s a powerful detail in his character:
 
-Instead, he walked away from his mother forever. Freya was devastated.
+Baldur doesn’t just want revenge. He wants release.
 
-But she still refused to break the spell. Because in her mind, Baldur being alive — even in misery — was better than losing him completely.
+Even in his final moments, he begs for sensation — even pain — because pain is proof that he is still alive.
+
+But Freya never changes her decision.
+
+Because to her:
+
+> Losing Baldur is worse than his suffering.
+
+And that contradiction destroys them both.
 
 - - -
 
@@ -141,19 +200,23 @@ But she still refused to break the spell. Because in her mind, Baldur being aliv
 
 ![Final Baldur boss fight scene](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Freya-5.jpg)
 
-At the end of **God of War (2018)**, Baldur finally breaks the curse.
+At the end of **God of War (2018)**, the curse is finally broken.
 
-A mistletoe arrow carried by Atreus pierces him, removing the invulnerability spell.
+A mistletoe arrow removes Baldur’s invulnerability.
 
-For the first time in centuries, Baldur can finally feel pain again.
+For the first time in centuries… He can feel again.
 
-But instead of reconciling with his mother, Baldur attacks her.
+But instead of reconciliation, something tragic happens.
 
-Freya refuses to fight back. She is even willing to die if it means Baldur can finally feel alive.
+Baldur attacks Freya. Freya refuses to fight back.
 
-But Kratos steps in. To stop Baldur from killing Freya, Kratos snaps Baldur’s neck.
+She is willing to die — if it means her son can finally feel alive.
 
-Ending the life of Freya’s son forever.
+But Kratos intervenes.
+
+To stop Baldur from killing her… He snaps Baldur’s neck.
+
+Killing him instantly.
 
 - - -
 
@@ -161,15 +224,25 @@ Ending the life of Freya’s son forever.
 
 ![Freya mourning Baldur](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Freya-7.jpg)
 
-Freya watches her son die in front of her. And the pain is unbearable.
+Freya watches her son die.
 
-From her perspective, Kratos just murdered the last thing she loved. She swears revenge.
+And in that moment… Everything breaks.
 
-For years afterward, Freya hunts Kratos across the realms during the long winter before Ragnarök.
+From her perspective:
 
-The woman who once helped Kratos and Atreus becomes their enemy.
+* She saved Baldur  
+* She protected him for centuries  
+* And Kratos took him away in seconds  
 
-Not because she is evil. But because grief has consumed her.
+So she does what many characters in *God of War* do when faced with loss.
+
+She chooses revenge.
+
+Freya swears to kill Kratos and spends years hunting him during Fimbulwinter. :contentReference[oaicite:5]{index=5}  
+
+The ally becomes the enemy.
+
+Not because she is evil. But because grief leaves no room for reason.
 
 - - -
 
@@ -177,32 +250,39 @@ Not because she is evil. But because grief has consumed her.
 
 ![Freya emotional closeup](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Freya-8.jpg)
 
-Freya’s story is tragic because every decision she made came from love.
+Freya’s story is tragic because she was never wrong in intention.
 
-She married Odin to end a war.
+Every decision she made came from love.
 
-She cursed Baldur to save his life.
+* She married Odin to end a war  
+* She protected Baldur from death  
+* She endured exile alone  
 
-She endured exile in Midgard alone.
+But intention is not enough.
 
-And yet every one of those decisions led to disaster.
+Because every choice she made created the outcome she feared most.
 
-She lost her freedom. She lost her people. And eventually… She lost her son.
+> She tried to stop fate…\
+> And became the reason it happened.
 
-Freya tried to protect the people she loved.
+She didn’t just lose her son.
 
-But in the end, her own fear of loss caused the very tragedy she tried to prevent.
+She lost him because of her own actions.
 
 - - -
 
 ## Final Thoughts
 
-Freya isn’t just a supporting character in **God of War**.
+Freya isn’t just a supporting character.
 
-She represents one of the most powerful themes in the series. Love can be dangerous.
+She represents one of the core themes of **God of War**:
 
-Sometimes the desire to protect someone can lead to terrible consequences.
+> Love without acceptance becomes control.
 
-Freya wanted to save her son from death. Instead, she created the suffering that ultimately destroyed him.
+She loved Baldur.
 
-And that’s why Freya’s story is one of the most heartbreaking tragedies in the entire God of War saga.
+But she couldn’t accept losing him. So she tried to control fate itself.
+
+And in doing so… She destroyed the very person she wanted to protect.
+
+That’s why Freya isn’t just tragic. She’s inevitable.
