@@ -6,6 +6,11 @@ date: 2026-03-17T22:39:00.000+07:00
 category: characters
 thumbnail: https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/Freya-thumb.jpg
 excerpt: Admin
+tags:
+  - god of war
+  - freya
+  - baldur
+  - kratos
 ---
 In **God of War (2018)**, Freya first appears as a mysterious ally.
 
