@@ -16,16 +16,19 @@ If you work for the FBI, your job usually involves things like:
 
 * Reading reports  
 * Analyzing data  
-* Connecting clues
+* Connecting clues  
 
 What it **normally does not involve** is:
 
 * Zombies  
 * Secret laboratories  
-* Giant monsters crawling through ceilings
+* Bio-engineered monsters crawling through ceilings  
 
-Unfortunately for Grace Ashcroft… that’s exactly what happened. Because Grace didn’t just start a normal investigation.
-She accidentally walked straight into **one of the worst bio-weapon disasters in Resident Evil history.**
+Unfortunately for Grace Ashcroft… that’s exactly what happened.
+
+Because Grace didn’t just start a normal investigation.
+
+She accidentally walked straight into **one of the most dangerous bio-weapon incidents in modern Resident Evil history.**
 
 ![](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/grace-5.gif)
 
@@ -33,19 +36,23 @@ She accidentally walked straight into **one of the worst bio-weapon disasters in
 
 ## Who exactly is Grace Ashcroft?
 
-Grace Ashcroft is the main new protagonist in **Resident Evil Requiem**.
+Grace Ashcroft is the main new protagonist in **Resident Evil Requiem**, the ninth main entry in the series. :contentReference[oaicite:0]{index=0}  
 
-She works as an **FBI intelligence analyst**, meaning she’s more of a researcher than a fighter.
+She works as an **FBI intelligence analyst**, meaning she’s trained to think — not fight.
 
 Her strengths are things like:
 
-* analyzing data  
-* connecting evidence  
-* solving mysteries  
+* analyzing patterns  
+* connecting fragmented evidence  
+* solving complex investigations  
 
-In other words… Grace is basically the **smart detective character**.
+In fact, even within the FBI, Grace is considered more of a **technical specialist than a field agent**.  
 
-Not the action hero. Which makes what happens next even worse.
+That detail is important. Because unlike characters like Leon or Jill…
+
+> Grace was never meant to survive a bio-weapon outbreak.
+
+And that’s exactly why her story feels different.
 
 ![](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/grace-10.jpg)
 
@@ -55,17 +62,29 @@ Not the action hero. Which makes what happens next even worse.
 
 Grace is assigned to investigate a series of **mysterious deaths connected to the Raccoon City incident.**
 
-At first, the case looks like a normal investigation.
+At first, the case looks routine.
 
-Strange deaths. Suspicious organizations. Old secrets resurfacing. Typical Resident Evil setup.
+Strange deaths.  
+Corporate secrets.  
+Old experiments resurfacing.
 
-But there is one small detail that makes the case very personal for Grace.
+Classic Resident Evil setup. But there’s one detail that changes everything.
 
-The investigation leads to **Wrenwood Hotel**, the same place where her mother died years earlier.
+The investigation leads to **Wrenwood Hotel** — the same place where her mother died.
 
-And that mother happens to be **Alyssa Ashcroft**, a journalist who survived the original Raccoon City disaster.
+And her mother isn’t just anyone.
 
-So now the investigation is not just professional. It’s personal. Which, in the Resident Evil universe, is usually a terrible sign.
+She’s **Alyssa Ashcroft**, a journalist and survivor of the original Raccoon City disaster. :contentReference[oaicite:2]{index=2}  
+
+That connection transforms the case.
+
+This is no longer just a job.
+
+> It’s unfinished trauma.
+
+And in Resident Evil…
+
+> Personal investigations never stay under control.
 
 ![](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/grace-4.gif)
 
@@ -73,25 +92,29 @@ So now the investigation is not just professional. It’s personal. Which, in th
 
 ## Step one: investigate the hotel
 
-Grace arrives at the hotel to search for clues.
+Grace arrives expecting:
 
-What she expects:
+* archived records  
+* hidden files  
+* maybe corporate cover-ups  
 
-* Documents  
-* Hidden evidence  
-* Maybe some suspicious corporate secrets
+Instead, she finds something far worse.
 
-What she actually finds:
+* armed kidnappers  
+* illegal experiments  
+* and a former Umbrella-affiliated scientist  
 
-* Kidnappers  
-* Biological experiments  
-* A scientist who really should have chosen a different career
+At this point, something shifts.
 
-A former Umbrella scientist named **Victor Gideon** suddenly attacks and abducts her.
+The environment itself stops behaving like a crime scene…
 
-At this point the investigation officially stops being an investigation.
+And starts behaving like a containment zone.
 
-And becomes a **survival horror game.**
+When **Victor Gideon** abducts her, the situation becomes clear:
+
+> This was never just an investigation.
+
+It was an entry point.
 
 ![](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/grace-3.gif)
 
@@ -99,31 +122,27 @@ And becomes a **survival horror game.**
 
 ## Step two: wake up inside a nightmare
 
-Grace eventually wakes up inside a medical facility called the **Rhodes Hill Chronic Care Center**.
+Grace wakes up inside a medical facility — the **Rhodes Hill Chronic Care Center**.
 
-Which is exactly the type of place that should never appear in Resident Evil.
+And if Resident Evil has taught us anything:
 
-Because every time a Resident Evil story involves:
+Hospitals are never safe.
 
-* Hospitals  
-* Laboratories  
-* Underground facilities
+They are where experiments happen.  
+Where mistakes spread.  
+Where outbreaks begin.
 
-Something terrible is about to happen.
+And sure enough… A mutated virus is released, infecting the entire facility.
 
-And sure enough… Victor releases a mutated version of the **T-virus**, infecting the entire facility.
+Patients become zombies.  
+Doctors become zombies.  
+Staff become zombies.  
 
-Patients become zombies.
+This aligns with the classic survival horror structure where infection spreads uncontrollably through enclosed environments.
 
-Doctors become zombies.
+> Grace realizes something critical:
 
-Staff become zombies.
-
-At this point Grace probably realizes something very important:
-
-This is no longer an investigation.
-
-This is a **bio-weapon outbreak.**
+This is no longer a case. This is a **biohazard event.**
 
 ![](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/grace-2.jpg)
 
@@ -131,29 +150,26 @@ This is a **bio-weapon outbreak.**
 
 ## Step three: meet the thing chasing you
 
-Just when the situation seems bad enough, the game introduces something worse.
+Just when survival seems possible…
 
-A mysterious monster known only as **“The Girl.”**
+The game introduces something worse.
 
-This creature behaves like the classic Resident Evil stalker enemies.
+A stalking entity known only as **“The Girl.”**
 
-It cannot be killed normally.
+This creature functions similarly to iconic pursuers like Mr. X:
 
-It appears suddenly.
+* It cannot be killed normally  
+* It appears unpredictably  
+* It forces constant movement  
 
-And it hunts Grace through the building.
+In gameplay terms, Grace’s sections are designed around **evasion rather than combat**.  
 
-Sometimes from the walls.
+The monster can even move through walls and ceilings, turning the environment itself into a threat.
 
-Sometimes from the ceiling. :contentReference\[oaicite:8]{index=8}
+Which completely changes how the player thinks.
 
-Which means Grace’s gameplay mostly involves:
-
-* Hiding  
-* Sneaking  
-* Running away  
-
-Because fighting the monster is not really an option.
+> You are not trying to win.\
+> You are trying to survive.
 
 ![](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/grace-7.jpg)
 
@@ -161,19 +177,29 @@ Because fighting the monster is not really an option.
 
 ## Meanwhile: Leon Kennedy enters the disaster
 
-While Grace is trying to survive the hospital nightmare, another character joins the story.
+While Grace struggles to survive…
 
-Veteran agent **Leon S. Kennedy**.
+Another perspective enters the story.
 
-Leon has been fighting bio-terrorism for decades.
+**Leon S. Kennedy.**
 
-So when he hears about another outbreak, he basically reacts like:
+A veteran who has seen multiple outbreaks before.
 
-“Not again.”
+And that contrast is intentional.
 
-Leon begins investigating the same incident and eventually tries to rescue Grace.
+Grace represents fear.  
+Leon represents experience.
 
-But because this is Resident Evil… things get worse before they get better.
+Gameplay reflects this difference:
+
+* Grace hides  
+* Leon fights  
+
+This dual structure reinforces one idea:
+
+> Not everyone in Resident Evil is built for war.
+
+Some are just trying to survive it.
 
 ![](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/grace-1.jpg)
 
@@ -181,33 +207,50 @@ But because this is Resident Evil… things get worse before they get better.
 
 ## The real mystery behind the investigation
 
-As the story unfolds, Grace discovers something shocking.
+As the story unfolds, Grace uncovers the truth.
 
 The investigation wasn’t random.
 
-She herself was connected to the entire situation.
+She was part of it.
 
-A bioweapon project called **Elpis** was hidden within the facility. And somehow Grace was the key to unlocking it.
+A hidden project called **Elpis** lies at the center — a bioweapon tied to long-term experiments and corporate secrets.  
+
+Even more disturbing:
+
+Grace herself is connected to that project in ways she never understood.
+
+This changes the entire narrative.
+
+> She wasn’t investigating the conspiracy.\
+> She was the key to it.
 
 ![](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/grace-9.gif)
-
-Which means the investigation she thought she was conducting… was actually a trap pulling her directly into the center of the conspiracy.
 
 - - -
 
 ## The moment the investigation turns into a disaster
 
-By the time Grace realizes what’s happening, the situation has completely escalated.
+By the time Grace understands the truth…
 
-The facility is collapsing.
+It’s already too late.
 
-Bio-weapons are everywhere.
+The facility collapses into chaos:
 
-A villain is trying to unleash chaos.
+* bio-weapons everywhere  
+* systems failing  
+* self-destruct mechanisms activated  
 
-And the entire place is about to self-destruct.
+This is the classic Resident Evil escalation:
 
-At this point the investigation has officially reached its final stage: **the Resident Evil explosion ending.**
+Investigation → Infection → Containment Failure → Total Collapse  
+
+And Grace is caught in the center of it.
+
+Not as a soldier.
+
+Not as a hero.
+
+But as someone who was never meant to be there.
 
 ![](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/grace-8.gif)
 
@@ -217,19 +260,23 @@ At this point the investigation has officially reached its final stage: **the Re
 
 Grace Ashcroft started her mission expecting a normal investigation.
 
-She thought she would analyze evidence, solve a mystery, and maybe expose a secret conspiracy.
+She thought she would:
 
-Instead she ended up with:
+* analyze evidence  
+* solve a mystery  
+* uncover a hidden truth  
 
-* a zombie outbreak  
-* a giant stalker monster  
-* a mad scientist  
-* and a collapsing bio-weapon facility
+Instead, she found:
 
-All in a single day.
+* a bio-weapon outbreak  
+* an unstoppable stalker  
+* a hidden conspiracy  
+* and a collapsing facility  
 
-Which proves an important rule about the Resident Evil universe.
+All within a single operation. And that’s what makes her story different.
 
-If someone asks you to investigate something connected to **Raccoon City**…
+Unlike most Resident Evil protagonists… Grace didn’t choose this fight.
 
-you should probably just say no.
+> She walked into it.
+
+And in a world like Resident Evil… That’s often the most dangerous mistake you can make.
