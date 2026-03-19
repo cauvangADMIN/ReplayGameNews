@@ -7,6 +7,11 @@ date: 2026-03-17T16:24:00.000+07:00
 category: characters
 thumbnail: https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/the-last-thumb.jpg
 excerpt: Admin
+tags:
+  - ellie
+  - the last of us
+  - Joel
+  - abby
 ---
 At the end of **The Last of Us**, the story reaches a moment that still divides fans today.
 
