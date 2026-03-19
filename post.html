@@ -174,24 +174,25 @@
         tagsContainer.innerHTML = ""
       }
 
-      // insert in-article ads (existing logic)
+      // insert in-article ad
       const paragraphs = container.querySelectorAll("p")
-      let insertedAds = 0
-      let lastAdIndex = -10
 
-      paragraphs.forEach((p,i)=>{
+      let inserted = false
 
-        if(insertedAds >= 4) return
+      for(let i = 0; i < paragraphs.length; i++){
 
-        // đảm bảo khoảng cách giữa ads
-        if(i - lastAdIndex < 4) return
+        const p = paragraphs[i]
 
-        // skip nếu paragraph quá ngắn
-        if(p.innerText.length < 120) return
+        // skip nếu quá ngắn
+        if(p.innerText.length < 120) continue
 
         // skip nếu gần image
         const next = p.nextElementSibling
-        if(next && next.tagName === "IMG") return
+        if(next && next.tagName === "IMG") continue
+
+        // 👉 chọn vị trí khoảng 25–40% bài
+        const ratio = i / paragraphs.length
+        if(ratio < 0.25) continue
 
         const ad = document.createElement("div")
         ad.className = "article-ad"
@@ -203,11 +204,12 @@
               data-ad-format="auto"
               data-full-width-responsive="true"></ins>
         `
-        p.after(ad)
-        insertedAds++
-        lastAdIndex = i
 
-      })
+        p.after(ad)
+
+        inserted = true
+        break
+      }
 
       // Render related posts (right after content & tags)
       renderRelatedPosts((meta.category || "").toLowerCase(), slug)
