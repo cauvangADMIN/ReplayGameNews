@@ -178,21 +178,50 @@
       const paragraphs = container.querySelectorAll("p")
 
       let inserted = false
+      let fallbackTarget = null
 
       for(let i = 0; i < paragraphs.length; i++){
 
         const p = paragraphs[i]
 
-        // skip nếu quá ngắn
-        if(p.innerText.length < 120) continue
-
-        // skip nếu gần image
+        const lengthOk = p.innerText.length >= 120
         const next = p.nextElementSibling
-        if(next && next.tagName === "IMG") continue
+        const notNearImage = !(next && next.tagName === "IMG")
 
-        // 👉 chọn vị trí khoảng 25–40% bài
         const ratio = i / paragraphs.length
-        if(ratio < 0.25) continue
+        const goodPosition = ratio >= 0.25
+
+        // 👉 PRIMARY (best UX)
+        if(lengthOk && notNearImage && goodPosition){
+
+          insertAdAfter(p)
+          inserted = true
+          break
+        }
+
+        // 👉 save fallback candidate (chỉ cần ok cơ bản)
+        if(!fallbackTarget && lengthOk){
+          fallbackTarget = p
+        }
+      }
+
+      /* =========================
+        FALLBACK (guarantee 1 ad)
+      ========================= */
+
+      if(!inserted){
+
+        if(fallbackTarget){
+          insertAdAfter(fallbackTarget)
+        } 
+        else if(paragraphs[1]){
+          // fallback cuối cùng: paragraph thứ 2
+          insertAdAfter(paragraphs[1])
+        }
+      }
+
+      /* helper */
+      function insertAdAfter(p){
 
         const ad = document.createElement("div")
         ad.className = "article-ad"
@@ -206,9 +235,6 @@
         `
 
         p.after(ad)
-
-        inserted = true
-        break
       }
 
       // Render related posts (right after content & tags)
