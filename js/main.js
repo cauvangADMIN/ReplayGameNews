@@ -4,10 +4,10 @@
 const ignColors = [
   "#ffe7e7",
   "#e6bc9e",
-  "#ecbb48",
-  "#53f27d",
+  "#f4d68f",
+  "#c4efcf",
   "#96c5e9",
-  "#c362ec",
+  "#c59dd6",
   "#27f5da"
 ]
 
