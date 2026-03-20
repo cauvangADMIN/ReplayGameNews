@@ -3,8 +3,8 @@ title: How The Gaming Industry Is Slowly Eating Its Own Players
 subtitle: Modern games are no longer just entertainment. They are systems
   designed to keep you playing, spending, and coming back. But at what cost?
 date: 2026-03-20T10:35:00.000+07:00
-category: tech
-thumbnail: https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/gaming-industry-thumb.jpg
+category: technology
+thumbnail: https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/gaming-industry-thumb-2.jpg
 excerpt: Admin
 tags:
   - gaming industry
