@@ -1,5 +1,7 @@
 {
   "routes": [
+    { "handle": "filesystem" },
+
     {
       "src": "^/([a-zA-Z0-9-]+)$",
       "dest": "/post.html?slug=$1"
