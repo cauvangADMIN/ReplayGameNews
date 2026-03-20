@@ -165,7 +165,7 @@ You log in because you don’t want to fall behind.
 
 The gaming industry is not destroying players overnight.
 
-![](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/gaming-industry-7.jpg)
+![](https://pub-da217e9da43e4b3ba192844eb749f8ad.r2.dev/gaming-industry-2.jpg)
 
 It is doing something far more subtle.
 
