@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://replaygamenews.com/sitemap.xml
-Sitemap: https://replaygamenews.com/rss.xml
