@@ -14,9 +14,7 @@ tags:
 ---
 If you’ve ever played **Resident Evil 4** or its remake, you’ve probably noticed something immediately.
 
-Leon doesn’t open doors.
-
-He kicks them.
+Leon doesn’t open doors. He kicks them.
 
 It doesn’t matter whether it’s a wooden door, a metal door, a castle gate, or someone’s completely innocent house. The moment Leon steps forward, the result is always the same.
 
@@ -30,9 +28,7 @@ At first, it looks like a simple animation choice. But the more you think about 
 
 Because in most games, characters open doors carefully, slowly, or with a simple button press.
 
-Leon doesn’t.
-
-He treats every door like it’s a potential threat.
+Leon doesn’t. He treats every door like it’s a potential threat.
 
 ## So… why?
 
@@ -114,11 +110,9 @@ This includes:
 
 Door kicking fits perfectly into this identity.
 
-Opening a door normally is realistic.
+Opening a door normally is realistic. Kicking it open is memorable.
 
-Kicking it open is memorable.
-
-And in a game that shifted toward action-focused gameplay compared to earlier entries :contentReference[oaicite:0]{index=0}  
+And in a game that shifted toward action-focused gameplay compared to earlier entries  
 
 > Memorable always wins over realistic.
 
