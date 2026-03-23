@@ -36,7 +36,7 @@ She accidentally walked straight into **one of the most dangerous bio-weapon inc
 
 ## Who exactly is Grace Ashcroft?
 
-Grace Ashcroft is the main new protagonist in **Resident Evil Requiem**, the ninth main entry in the series. :contentReference[oaicite:0]{index=0}  
+Grace Ashcroft is the main new protagonist in **Resident Evil Requiem**, the ninth main entry in the series.  
 
 She works as an **FBI intelligence analyst**, meaning she’s trained to think — not fight.
 
@@ -64,8 +64,8 @@ Grace is assigned to investigate a series of **mysterious deaths connected to th
 
 At first, the case looks routine.
 
-Strange deaths.  
-Corporate secrets.  
+Strange deaths.\
+Corporate secrets.\
 Old experiments resurfacing.
 
 Classic Resident Evil setup. But there’s one detail that changes everything.
@@ -74,7 +74,7 @@ The investigation leads to **Wrenwood Hotel** — the same place where her mothe
 
 And her mother isn’t just anyone.
 
-She’s **Alyssa Ashcroft**, a journalist and survivor of the original Raccoon City disaster. :contentReference[oaicite:2]{index=2}  
+She’s **Alyssa Ashcroft**, a journalist and survivor of the original Raccoon City disaster.  
 
 That connection transforms the case.
 
@@ -128,14 +128,14 @@ And if Resident Evil has taught us anything:
 
 Hospitals are never safe.
 
-They are where experiments happen.  
-Where mistakes spread.  
+They are where experiments happen.\
+Where mistakes spread.\
 Where outbreaks begin.
 
 And sure enough… A mutated virus is released, infecting the entire facility.
 
-Patients become zombies.  
-Doctors become zombies.  
+Patients become zombies.\
+Doctors become zombies.\
 Staff become zombies.  
 
 This aligns with the classic survival horror structure where infection spreads uncontrollably through enclosed environments.
@@ -187,7 +187,7 @@ A veteran who has seen multiple outbreaks before.
 
 And that contrast is intentional.
 
-Grace represents fear.  
+Grace represents fear.\
 Leon represents experience.
 
 Gameplay reflects this difference:
@@ -209,9 +209,7 @@ Some are just trying to survive it.
 
 As the story unfolds, Grace uncovers the truth.
 
-The investigation wasn’t random.
-
-She was part of it.
+The investigation wasn’t random. She was part of it.
 
 A hidden project called **Elpis** lies at the center — a bioweapon tied to long-term experiments and corporate secrets.  
 
