@@ -24,87 +24,27 @@ function shuffle(arr){
 
 function renderRotatingMobileAd(){
 
-  const container = document.getElementById("mobile-rotating-ad")
+  const isMobile = window.innerWidth <= 768
+  if(!isMobile) return
 
-  if(!container) return
+  let count = localStorage.getItem("adRotationCount") || 0
+  count = parseInt(count) + 1
 
-  const isMobile = window.innerWidth <= 640
+  localStorage.setItem("adRotationCount", count)
 
-  /* =========================
-     DESKTOP
-  ========================= */
+  const showFirst = count % 2 === 0
 
-  if(!isMobile){
+  const ad1 = document.querySelector(".mobile-ad-1")
+  const ad2 = document.querySelector(".mobile-ad-2")
 
-    const adHtml = `
+  if(!ad1 || !ad2) return
 
-      <div class="ad-box-wrapper">
-
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:300px;height:250px"
-             data-ad-client="ca-pub-XXXX"
-             data-ad-slot="XXXX"></ins>
-
-      </div>
-
-      <div class="ad-box-wrapper">
-
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:300px;height:600px"
-             data-ad-client="ca-pub-XXXX"
-             data-ad-slot="XXXX"></ins>
-
-      </div>
-
-    `
-
-    container.innerHTML = adHtml
-
-  }
-
-  /* =========================
-     MOBILE ROTATION
-  ========================= */
-
-  else{
-
-    let count = localStorage.getItem("adRotationCount") || 0
-    count = parseInt(count) + 1
-
-    localStorage.setItem("adRotationCount", count)
-
-    const useLarge = count % 2 === 0
-
-    let adHtml = ""
-
-    if(useLarge){
-
-      adHtml = `
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:300px;height:600px"
-             data-ad-client="ca-pub-XXXX"
-             data-ad-slot="XXXX"></ins>
-      `
-
-    }else{
-
-      adHtml = `
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:300px;height:250px"
-             data-ad-client="ca-pub-XXXX"
-             data-ad-slot="XXXX"></ins>
-      `
-
-    }
-
-    container.innerHTML = adHtml
-
-  }
-
-  /* Trigger AdSense render */
-
-  if(window.adsbygoogle){
-    (adsbygoogle = window.adsbygoogle || []).push({})
+  if(showFirst){
+    ad1.style.display = "block"
+    ad2.style.display = "none"
+  }else{
+    ad1.style.display = "none"
+    ad2.style.display = "block"
   }
 
 }
@@ -344,34 +284,59 @@ function applyFilter(category){
   renderBatch()
 }
 
+function placeInfeedAd(){
+
+  const ad = document.getElementById("infeed-ad-fixed")
+  const posts = document.querySelectorAll("#posts-list .latest-item")
+
+  if(!ad || posts.length < 5) return
+
+  // 👉 nếu đã đặt rồi thì skip
+  if(ad.dataset.placed) return
+
+  posts[4].insertAdjacentElement("afterend", ad)
+
+  ad.style.display = "block"
+
+  setTimeout(()=>{
+    reloadAdsterraScript(ad)
+  }, 100)
+
+  ad.dataset.placed = "true" // 🔥 QUAN TRỌNG
+}
+
+function reloadAdsterraScript(container){
+
+  const scripts = container.querySelectorAll("script")
+
+  scripts.forEach(oldScript => {
+
+    const newScript = document.createElement("script")
+
+    // copy attributes
+    if(oldScript.src){
+      newScript.src = oldScript.src
+      newScript.async = true
+    } else {
+      newScript.innerHTML = oldScript.innerHTML
+    }
+
+    oldScript.parentNode.replaceChild(newScript, oldScript)
+
+  })
+
+}
+
 function renderBatch(){
 
   const container = document.getElementById("posts-list")
 
-  const slice = filteredPosts.slice(
-    index,
-    index + batchSize
-  )
+  const slice = filteredPosts.slice(index, index + batchSize)
 
   let html = ""
 
-  slice.forEach((post,i)=>{
-
+  slice.forEach((post)=>{
     html += createListItem(post)
-
-    const globalIndex = index + i + 1
-
-    // in-feed ad
-    if(globalIndex % 5 === 0){
-
-      html += `
-      <div class="infeed-ad">
-        <div class="ad-placeholder ad-728x90">
-          AD 728 × 90
-        </div>
-      </div>`
-    }
-
   })
 
   container.insertAdjacentHTML("beforeend", html)
@@ -379,6 +344,9 @@ function renderBatch(){
   index += batchSize
 
   renderLoadMore()
+
+  // 👉 đặt ad sau khi render xong
+  placeInfeedAd()
 }
 
 function renderLoadMore(){
@@ -407,6 +375,7 @@ function renderLoadMore(){
     .getElementById("load-more-btn")
     .addEventListener("click", renderBatch)
 }
+
 
 function initNavScroll(){
 
