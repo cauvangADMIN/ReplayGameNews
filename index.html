@@ -45,6 +45,9 @@
 </header>
 
 
+<aside class="side-ad side-ad-left" id="side-ad-left-slot" aria-label="Left advertisement"></aside>
+<aside class="side-ad side-ad-right" id="side-ad-right-slot" aria-label="Right advertisement"></aside>
+
 
 <main class="container">
 
@@ -62,30 +65,13 @@
       <div class="ad-banner">
 
         <!-- DESKTOP 728x90 -->
-        <div class="ad-desktop">
-
-          <script>
-            atOptions = {
-              'key' : 'fbb415addb18ed475ecae9979848f5cb',
-              'format' : 'iframe',
-              'height' : 90,
-              'width' : 728,
-              'params' : {}
-            };
-          </script>
-          <script src="https://shorterwanderer.com/fbb415addb18ed475ecae9979848f5cb/invoke.js"></script>
-
+        <div class="ad-desktop top-ad-desktop" id="top-ad-desktop-slot">
         </div>
 
 
         <!-- MOBILE NATIVE -->
-        <div class="ad-mobile">
-
-          <script async="async" data-cfasync="false"
-            src="https://shorterwanderer.com/3331fbbbf1e79a5b35629c52a32779c9/invoke.js">
-          </script>
+        <div class="ad-mobile top-ad-mobile" id="top-ad-mobile-slot">
           <div id="container-3331fbbbf1e79a5b35629c52a32779c9"></div>
-
         </div>
 
       </div>
@@ -134,16 +120,17 @@
 
     <!-- 300x250 -->
     <div class="ad-box">
-      <script>
-        atOptions = {
-          'key' : '94fd324a8a54548c629c11b42b587068',
-          'format' : 'iframe',
-          'height' : 250,
-          'width' : 300,
-          'params' : {}
-        };
-      </script>
-      <script src="https://shorterwanderer.com/94fd324a8a54548c629c11b42b587068/invoke.js"></script>
+    <script>
+      atOptions = {
+        'key' : '33e30457415285f30adcef808fd7325a',
+        'format' : 'iframe',
+        'height' : 250,
+        'width' : 300,
+        'params' : {}
+      };
+    </script>
+    <script src="https://shorterwanderer.com/33e30457415285f30adcef808fd7325a/invoke.js"></script>
+
     </div>
 
     <!-- Native -->
@@ -155,30 +142,10 @@
     </div>
 
   </div>
-
-
-      <!-- MOBILE ROTATION -->
       <div class="ad-mobile">
 
-        <!-- Ad A -->
-        <div class="mobile-ad mobile-ad-1">
-          <script>
-            atOptions = {
-              'key' : '94fd324a8a54548c629c11b42b587068',
-              'format' : 'iframe',
-              'height' : 250,
-              'width' : 300,
-              'params' : {}
-            };
-          </script>
-          <script src="https://shorterwanderer.com/94fd324a8a54548c629c11b42b587068/invoke.js"></script>
-        </div>
-
-        <!-- Ad B -->
-        <div class="mobile-ad mobile-ad-2">
-          <script async="async" data-cfasync="false" src="https://shorterwanderer.com/5f5ab8644698881f3992e5ea1a8a3945/invoke.js"></script>
-          <div id="container-5f5ab8644698881f3992e5ea1a8a3945"></div>
-        </div>
+        <script async="async" data-cfasync="false" src="https://shorterwanderer.com/5f5ab8644698881f3992e5ea1a8a3945/invoke.js"></script>
+        <div id="container-5f5ab8644698881f3992e5ea1a8a3945"></div>
 
       </div>
 
@@ -279,6 +246,69 @@
 document.getElementById("year").innerText =
   new Date().getFullYear()
 
+</script>
+
+<script>
+let iframeAdQueue = Promise.resolve()
+
+function loadIframeAd(slotId, key, width, height){
+  iframeAdQueue = iframeAdQueue.then(()=> new Promise((resolve)=>{
+    const slot = document.getElementById(slotId)
+
+    if(!slot || slot.dataset.loaded === "true"){
+      resolve()
+      return
+    }
+
+    window.atOptions = {
+      key,
+      format: "iframe",
+      height,
+      width,
+      params: {}
+    }
+
+    const script = document.createElement("script")
+    script.src = `https://shorterwanderer.com/${key}/invoke.js`
+    script.onload = resolve
+    script.onerror = resolve
+    slot.appendChild(script)
+    slot.dataset.loaded = "true"
+  }))
+
+  return iframeAdQueue
+}
+
+function loadTopBannerAd(){
+  const isMobile = window.matchMedia("(max-width: 768px)").matches
+  const mobileSlot = document.getElementById("top-ad-mobile-slot")
+
+  if(isMobile){
+    if(!mobileSlot || mobileSlot.dataset.loaded === "true") return
+    const script = document.createElement("script")
+    script.async = true
+    script.setAttribute("data-cfasync", "false")
+    script.src = "https://shorterwanderer.com/3331fbbbf1e79a5b35629c52a32779c9/invoke.js"
+    mobileSlot.appendChild(script)
+    mobileSlot.dataset.loaded = "true"
+    return
+  }
+
+  loadIframeAd("top-ad-desktop-slot", "fbb415addb18ed475ecae9979848f5cb", 728, 90)
+}
+
+document.addEventListener("DOMContentLoaded", loadTopBannerAd)
+</script>
+
+<script>
+function loadSideAds(){
+  if(!window.matchMedia("(min-width: 1460px)").matches) return
+
+  loadIframeAd("side-ad-left-slot", "69c7c73901ea591ee931a958701fd9dc", 160, 600)
+  loadIframeAd("side-ad-right-slot", "792de38c9f29562a8009fa70417cbf3d", 160, 600)
+}
+
+document.addEventListener("DOMContentLoaded", loadSideAds)
 </script>
 
 

@@ -22,33 +22,6 @@ function shuffle(arr){
     .map(({v})=>v)
 }
 
-function renderRotatingMobileAd(){
-
-  const isMobile = window.innerWidth <= 768
-  if(!isMobile) return
-
-  let count = localStorage.getItem("adRotationCount") || 0
-  count = parseInt(count) + 1
-
-  localStorage.setItem("adRotationCount", count)
-
-  const showFirst = count % 2 === 0
-
-  const ad1 = document.querySelector(".mobile-ad-1")
-  const ad2 = document.querySelector(".mobile-ad-2")
-
-  if(!ad1 || !ad2) return
-
-  if(showFirst){
-    ad1.style.display = "block"
-    ad2.style.display = "none"
-  }else{
-    ad1.style.display = "none"
-    ad2.style.display = "block"
-  }
-
-}
-
 function initMobileCarousel(posts){
 
   if(window.innerWidth > 640) return
@@ -459,9 +432,6 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   const gridContainer = document.getElementById("main-grid")
 
   gridContainer.innerHTML = gridPosts.map(createCard).join("")
-
-  renderRotatingMobileAd()
-
   initMobileCarousel(gridPosts)
 
   /* INIT UI */

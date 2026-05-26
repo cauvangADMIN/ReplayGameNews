@@ -275,6 +275,42 @@ a{
   align-items:center;
 }
 
+.top-ad-desktop{
+  min-height:90px;
+}
+
+.top-ad-mobile{
+  min-height:100px;
+}
+
+.side-ad{
+  position:fixed;
+  top:50%;
+  z-index:30;
+  width:160px;
+  min-height:600px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform:translateY(-50%);
+}
+
+.side-ad-left{
+  left:max(16px, calc((100vw - var(--container)) / 2 - 184px));
+}
+
+.side-ad-right{
+  right:max(16px, calc((100vw - var(--container)) / 2 - 184px));
+}
+
+@media (max-width:1459px){
+
+  .side-ad{
+    display:none;
+  }
+
+}
+
 .ad-placeholder{
   width:970px;
   height:90px;
@@ -1083,15 +1119,6 @@ a{
 
   .ad-mobile {
     display: block;
-  }
-
-  .mobile-ad {
-    display: none;
-  }
-
-  .mobile-ad-1 iframe {
-    display: block;
-    margin: 0 auto;
   }
 }
 
