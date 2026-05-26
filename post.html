@@ -364,19 +364,8 @@
 
 <body>
 
-<div class="sticky-ad sticky-left">
-  <ins class="adsbygoogle lazy-ad"
-       style="display:block;width:160px;height:600px"
-       data-ad-client="ca-pub-XXXX"
-       data-ad-slot="XXXX"></ins>
-</div>
-
-<div class="sticky-ad sticky-right">
-  <ins class="adsbygoogle lazy-ad"
-       style="display:block;width:160px;height:600px"
-       data-ad-client="ca-pub-XXXX"
-       data-ad-slot="XXXX"></ins>
-</div>
+<aside class="side-ad side-ad-left" id="detail-side-ad-left-slot" aria-label="Left advertisement"></aside>
+<aside class="side-ad side-ad-right" id="detail-side-ad-right-slot" aria-label="Right advertisement"></aside>
 
 <header class="site-header">
   <div class="container">
@@ -446,6 +435,68 @@
 
 <script>
 document.getElementById("year2").innerText = new Date().getFullYear()
+</script>
+
+<script>
+(function(){
+  let detailIframeAdQueue = Promise.resolve()
+  const iframeAdSettleMs = 800
+  const iframeAdTimeoutMs = 5000
+
+  function wait(ms){
+    return new Promise(resolve => window.setTimeout(resolve, ms))
+  }
+
+  function loadDetailIframeAd(slotId, key, width, height){
+    detailIframeAdQueue = detailIframeAdQueue.then(async ()=>{
+      const slot = document.getElementById(slotId)
+
+      if(!slot || slot.dataset.loaded === "true"){
+        return
+      }
+
+      window.atOptions = {
+        key,
+        format: "iframe",
+        height,
+        width,
+        params: {}
+      }
+
+      const script = document.createElement("script")
+      script.src = `https://shorterwanderer.com/${key}/invoke.js`
+
+      const scriptFinished = new Promise(resolve => {
+        let timeoutId
+        const finish = () => {
+          window.clearTimeout(timeoutId)
+          resolve()
+        }
+
+        timeoutId = window.setTimeout(finish, iframeAdTimeoutMs)
+        script.onload = finish
+        script.onerror = finish
+      })
+
+      slot.appendChild(script)
+      slot.dataset.loaded = "true"
+
+      await scriptFinished
+      await wait(iframeAdSettleMs)
+    })
+
+    return detailIframeAdQueue
+  }
+
+  async function loadDetailSideAds(){
+    if(!window.matchMedia("(min-width: 1460px)").matches) return
+
+    await loadDetailIframeAd("detail-side-ad-left-slot", "69c7c73901ea591ee931a958701fd9dc", 160, 600)
+    await loadDetailIframeAd("detail-side-ad-right-slot", "792de38c9f29562a8009fa70417cbf3d", 160, 600)
+  }
+
+  document.addEventListener("DOMContentLoaded", loadDetailSideAds)
+})()
 </script>
 
 </body>
