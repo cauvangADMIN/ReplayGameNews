@@ -272,32 +272,15 @@ function placeInfeedAd(){
   ad.style.display = "block"
 
   setTimeout(()=>{
-    reloadAdsterraScript(ad)
+    if(
+      window.loadIframeAd &&
+      window.matchMedia("(max-width: 768px)").matches
+    ){
+      window.loadIframeAd("infeed-ad-slot", "179263f701feef7d655b640f88937afe", 468, 60)
+    }
   }, 100)
 
   ad.dataset.placed = "true" // 🔥 QUAN TRỌNG
-}
-
-function reloadAdsterraScript(container){
-
-  const scripts = container.querySelectorAll("script")
-
-  scripts.forEach(oldScript => {
-
-    const newScript = document.createElement("script")
-
-    // copy attributes
-    if(oldScript.src){
-      newScript.src = oldScript.src
-      newScript.async = true
-    } else {
-      newScript.innerHTML = oldScript.innerHTML
-    }
-
-    oldScript.parentNode.replaceChild(newScript, oldScript)
-
-  })
-
 }
 
 function renderBatch(){

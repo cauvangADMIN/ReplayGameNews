@@ -189,17 +189,7 @@
 
     <div id="infeed-ad-fixed" class="infeed-ad">
       <!-- MOBILE -->
-      <div class="ad-mobile">
-        <script>
-          atOptions = {
-            'key' : '179263f701feef7d655b640f88937afe',
-            'format' : 'iframe',
-            'height' : 60,
-            'width' : 468,
-            'params' : {}
-          };
-        </script>
-        <script src="https://shorterwanderer.com/179263f701feef7d655b640f88937afe/invoke.js"></script>
+      <div class="ad-mobile" id="infeed-ad-slot">
       </div>
 
     </div>
@@ -250,13 +240,18 @@ document.getElementById("year").innerText =
 
 <script>
 let iframeAdQueue = Promise.resolve()
+const iframeAdSettleMs = 800
+const iframeAdTimeoutMs = 5000
+
+function wait(ms){
+  return new Promise(resolve => window.setTimeout(resolve, ms))
+}
 
 function loadIframeAd(slotId, key, width, height){
-  iframeAdQueue = iframeAdQueue.then(()=> new Promise((resolve)=>{
+  iframeAdQueue = iframeAdQueue.then(async ()=>{
     const slot = document.getElementById(slotId)
 
     if(!slot || slot.dataset.loaded === "true"){
-      resolve()
       return
     }
 
@@ -270,50 +265,62 @@ function loadIframeAd(slotId, key, width, height){
 
     const script = document.createElement("script")
     script.src = `https://shorterwanderer.com/${key}/invoke.js`
-    script.onload = resolve
-    script.onerror = resolve
+
+    const scriptFinished = new Promise(resolve => {
+      let timeoutId
+      const finish = () => {
+        window.clearTimeout(timeoutId)
+        resolve()
+      }
+
+      timeoutId = window.setTimeout(finish, iframeAdTimeoutMs)
+      script.onload = finish
+      script.onerror = finish
+    })
+
     slot.appendChild(script)
     slot.dataset.loaded = "true"
-  }))
+
+    await scriptFinished
+    await wait(iframeAdSettleMs)
+  })
 
   return iframeAdQueue
 }
 
-function loadTopBannerAd(){
-  const isMobile = window.matchMedia("(max-width: 768px)").matches
+function loadTopMobileAd(){
   const mobileSlot = document.getElementById("top-ad-mobile-slot")
 
-  if(isMobile){
-    if(!mobileSlot || mobileSlot.dataset.loaded === "true") return
-    const script = document.createElement("script")
-    script.async = true
-    script.setAttribute("data-cfasync", "false")
-    script.src = "https://shorterwanderer.com/3331fbbbf1e79a5b35629c52a32779c9/invoke.js"
-    mobileSlot.appendChild(script)
-    mobileSlot.dataset.loaded = "true"
+  if(!mobileSlot || mobileSlot.dataset.loaded === "true") return
+
+  const script = document.createElement("script")
+  script.async = true
+  script.setAttribute("data-cfasync", "false")
+  script.src = "https://shorterwanderer.com/3331fbbbf1e79a5b35629c52a32779c9/invoke.js"
+  mobileSlot.appendChild(script)
+  mobileSlot.dataset.loaded = "true"
+}
+
+async function loadTopAndSideAds(){
+  if(window.matchMedia("(max-width: 768px)").matches){
+    loadTopMobileAd()
     return
   }
 
-  loadIframeAd("top-ad-desktop-slot", "fbb415addb18ed475ecae9979848f5cb", 728, 90)
-}
+  await loadIframeAd("top-ad-desktop-slot", "fbb415addb18ed475ecae9979848f5cb", 728, 90)
 
-document.addEventListener("DOMContentLoaded", loadTopBannerAd)
-</script>
-
-<script>
-function loadSideAds(){
   if(!window.matchMedia("(min-width: 1460px)").matches) return
 
-  loadIframeAd("side-ad-left-slot", "69c7c73901ea591ee931a958701fd9dc", 160, 600)
-  loadIframeAd("side-ad-right-slot", "792de38c9f29562a8009fa70417cbf3d", 160, 600)
+  await loadIframeAd("side-ad-left-slot", "69c7c73901ea591ee931a958701fd9dc", 160, 600)
+  await loadIframeAd("side-ad-right-slot", "792de38c9f29562a8009fa70417cbf3d", 160, 600)
 }
 
-document.addEventListener("DOMContentLoaded", loadSideAds)
+document.addEventListener("DOMContentLoaded", loadTopAndSideAds)
 </script>
 
 
 
-<script src="https://shorterwanderer.com/ec/8c/d7/ec8cd7daf9ab8e9f32b1180ead398d44.js"></script>
+<script src="https://shorterwanderer.com/1c/33/bd/1c33bd228505b0ef848c24e9c207161a.js"></script>
 
 </body>
 </html>
