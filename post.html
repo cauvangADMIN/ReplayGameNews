@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/styles/styles.css">
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js" defer></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossorigin="anonymous"></script>
 
     <!-- Google tag (gtag.js) -->
@@ -57,6 +58,224 @@
     return ignColors[Math.floor(Math.random() * ignColors.length)];
   }
 
+  function parseSimpleFrontmatter(fm){
+    const meta = {}
+
+    fm.split("\n").forEach(line=>{
+      const idx = line.indexOf(":")
+      if(idx > 0){
+        const k = line.slice(0, idx).trim()
+        const rest = line.slice(idx+1).trim()
+        if(k) meta[k] = rest.replace(/^['"]|['"]$/g,"")
+      }
+    })
+
+    const inlineTags = fm.match(/tags:\s*\[([^\]]*)\]/)
+    if(inlineTags){
+      meta.tags = inlineTags[1]
+        .split(",")
+        .map(t=>t.trim().replace(/^['"]|['"]$/g,""))
+        .filter(Boolean)
+    } else {
+      const blockMatch = fm.match(/tags:\s*\n((?:\s*-\s*.*\n?)+)/)
+      if(blockMatch){
+        meta.tags = blockMatch[1]
+          .split("\n")
+          .map(l => l.trim())
+          .filter(Boolean)
+          .map(l => l.replace(/^-+\s*/,"").trim())
+          .filter(Boolean)
+      } else if(meta.tags && typeof meta.tags === "string" && meta.tags.indexOf(",") !== -1){
+        meta.tags = meta.tags.split(",").map(t=>t.trim()).filter(Boolean)
+      }
+    }
+
+    return meta
+  }
+
+  function parsePostMarkdown(md){
+    const fmMatch = md.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/)
+
+    if(!fmMatch){
+      return { meta:{}, content:md }
+    }
+
+    const fm = fmMatch[1]
+    const content = fmMatch[2]
+    let meta = {}
+
+    try{
+      if(window.jsyaml){
+        meta = window.jsyaml.load(fm) || {}
+      } else {
+        meta = parseSimpleFrontmatter(fm)
+      }
+    }catch(e){
+      console.warn("frontmatter parse fallback", e)
+      meta = parseSimpleFrontmatter(fm)
+    }
+
+    return { meta, content }
+  }
+
+  function normalizeTags(tags){
+    if(!tags) return []
+
+    if(Array.isArray(tags)){
+      return tags
+        .map(t => {
+          if(typeof t === "string") return t
+          if(t && typeof t === "object") return t.tag || t.name || ""
+          return ""
+        })
+        .filter(Boolean)
+    }
+
+    if(typeof tags === "string"){
+      return tags.split(",").map(t=>t.trim()).filter(Boolean)
+    }
+
+    return []
+  }
+
+  function formatDateMeta(date){
+    if(!date) return ""
+    if(date instanceof Date && !Number.isNaN(date.getTime())){
+      return date.toISOString().slice(0,10)
+    }
+    return String(date)
+  }
+
+  function escapeHtml(value){
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;")
+  }
+
+  function normalizeCarouselImages(images){
+    if(!Array.isArray(images)) return []
+
+    return images
+      .map(item => {
+        if(typeof item === "string"){
+          return { image:item, caption:"" }
+        }
+
+        if(item && typeof item === "object"){
+          return {
+            image:item.image || item.url || item.src || "",
+            caption:item.caption || item.alt || ""
+          }
+        }
+
+        return { image:"", caption:"" }
+      })
+      .filter(item => item.image)
+  }
+
+  function renderArticleCarousel(block, index){
+    const images = normalizeCarouselImages(block.images || block.slides)
+    if(!images.length) return ""
+
+    const label = block.title || `Image carousel ${index + 1}`
+
+    return `
+      <section class="article-carousel" data-article-carousel aria-label="${escapeHtml(label)}">
+        <div class="article-carousel-viewport">
+          <button class="article-carousel-btn article-carousel-prev" type="button" aria-label="Previous image" data-carousel-prev>‹</button>
+          <div class="article-carousel-track" data-carousel-track tabindex="0">
+            ${images.map((item, imageIndex)=>`
+              <figure class="article-carousel-slide">
+                <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.caption || label)}" loading="lazy">
+                ${item.caption ? `<figcaption>${escapeHtml(item.caption)}</figcaption>` : ""}
+              </figure>
+            `).join("")}
+          </div>
+          <button class="article-carousel-btn article-carousel-next" type="button" aria-label="Next image" data-carousel-next>›</button>
+        </div>
+        ${images.length > 1 ? `
+          <div class="article-carousel-dots" aria-label="Carousel pagination">
+            ${images.map((_, dotIndex)=>`
+              <button type="button" data-carousel-dot="${dotIndex}" aria-label="Go to image ${dotIndex + 1}"></button>
+            `).join("")}
+          </div>
+        ` : ""}
+      </section>
+    `
+  }
+
+  function renderContentBlocks(blocks, legacyContent){
+    if(Array.isArray(blocks) && blocks.length){
+      return blocks.map((block, index)=>{
+        const type = (block.type || block.widget || block.kind || "").toLowerCase()
+
+        if(type === "carousel"){
+          return renderArticleCarousel(block, index)
+        }
+
+        return marked.parse(block.content || block.text || "")
+      }).join("")
+    }
+
+    return marked.parse(legacyContent || "")
+  }
+
+  function initArticleCarousels(root = document){
+    root.querySelectorAll("[data-article-carousel]").forEach(carousel=>{
+      const track = carousel.querySelector("[data-carousel-track]")
+      const slides = Array.from(carousel.querySelectorAll(".article-carousel-slide"))
+      const prev = carousel.querySelector("[data-carousel-prev]")
+      const next = carousel.querySelector("[data-carousel-next]")
+      const dots = Array.from(carousel.querySelectorAll("[data-carousel-dot]"))
+
+      if(!track || !slides.length) return
+
+      if(slides.length <= 1){
+        carousel.classList.add("is-single")
+      }
+
+      let activeIndex = 0
+      let scrollFrame = null
+
+      function setActive(index){
+        activeIndex = Math.max(0, Math.min(index, slides.length - 1))
+        dots.forEach((dot, dotIndex)=>{
+          dot.classList.toggle("is-active", dotIndex === activeIndex)
+        })
+      }
+
+      function goTo(index){
+        const nextIndex = (index + slides.length) % slides.length
+        track.scrollTo({
+          left: track.clientWidth * nextIndex,
+          behavior: "smooth"
+        })
+        setActive(nextIndex)
+      }
+
+      function updateFromScroll(){
+        const index = Math.round(track.scrollLeft / Math.max(track.clientWidth, 1))
+        setActive(index)
+        scrollFrame = null
+      }
+
+      prev && prev.addEventListener("click", ()=>goTo(activeIndex - 1))
+      next && next.addEventListener("click", ()=>goTo(activeIndex + 1))
+      dots.forEach((dot, index)=>{
+        dot.addEventListener("click", ()=>goTo(index))
+      })
+      track.addEventListener("scroll", ()=>{
+        if(scrollFrame) return
+        scrollFrame = requestAnimationFrame(updateFromScroll)
+      }, { passive:true })
+
+      setActive(0)
+    })
+  }
+
   function initLazyAds(){
     const ads = document.querySelectorAll(".lazy-ad")
     const observer = new IntersectionObserver((entries, obs)=>{
@@ -99,86 +318,37 @@
       }
 
       const md = await res.text()
-
-      // Parse frontmatter robust hơn: tách --- yamL --- body
-      const fmMatch = md.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/)
-
-      let meta = {}
-      let content = md
-      let fm = ""
-
-      if(fmMatch){
-
-        fm = fmMatch[1]
-        content = fmMatch[2]
-
-        // parse simple key: value lines (fallback)
-        fm.split("\n").forEach(line=>{
-          const idx = line.indexOf(":")
-          if(idx > 0){
-            const k = line.slice(0, idx).trim()
-            const rest = line.slice(idx+1).trim()
-            if(k) meta[k] = rest
-          }
-        })
-
-        // parse tags robustly:
-        // 1) inline: tags: [a, b, "c"]
-        const inlineTags = fm.match(/tags:\s*\[([^\]]*)\]/)
-        if(inlineTags){
-          meta.tags = inlineTags[1]
-            .split(",")
-            .map(t=>t.trim().replace(/^['"]|['"]$/g,""))
-            .filter(Boolean)
-        } else {
-          // 2) block list:
-          // find tags: then subsequent lines starting with - 
-          const blockMatch = fm.match(/tags:\s*\n((?:\s*-\s*.*\n?)+)/)
-          if(blockMatch){
-            meta.tags = blockMatch[1]
-              .split("\n")
-              .map(l => l.trim())
-              .filter(Boolean)
-              .map(l => l.replace(/^-+\s*/,"").trim())
-              .filter(Boolean)
-          } else {
-            // fallback if tags was parsed earlier as "tag1, tag2"
-            if(meta.tags && typeof meta.tags === "string" && meta.tags.indexOf(",") !== -1){
-              meta.tags = meta.tags.split(",").map(t=>t.trim()).filter(Boolean)
-            }
-          }
-        }
-
-      }
+      const parsedPost = parsePostMarkdown(md)
+      const meta = parsedPost.meta
+      const content = parsedPost.content
+      const tags = normalizeTags(meta.tags)
 
       // Title
       document.getElementById("page-title").innerText = meta.title || slug
       document.getElementById("post-title").innerText = meta.title || slug
 
-      // Thumbnail
       if(meta.thumbnail){
-        document.getElementById("post-thumb").src = meta.thumbnail
-      } else {
-        document.getElementById("post-thumb").style.display = "none"
+        const ogImage = document.querySelector('meta[property="og:image"]')
+        if(ogImage) ogImage.setAttribute("content", meta.thumbnail)
       }
 
       // Meta row
       document.getElementById("post-meta").innerText =
-        `${meta.date || ""} • ${meta.category || ""}`
+        `${formatDateMeta(meta.date)} • ${meta.category || ""}`
 
       // Content
-      const html = marked.parse(content)
       const container = document.getElementById("post-content")
-      container.innerHTML = html
+      container.innerHTML = renderContentBlocks(meta.content_blocks || meta.contentBlocks || meta.blocks, content)
+      initArticleCarousels(container)
 
       // render tags (below content)
       const tagsContainer = document.getElementById("post-tags")
-      if(meta.tags && Array.isArray(meta.tags) && meta.tags.length){
+      if(tags.length){
         tagsContainer.setAttribute("aria-hidden", "false")
         tagsContainer.innerHTML = `
           <div class="tags-title">Tags:</div>
           <div class="tags-row">
-            ${meta.tags.map(t=>`<a class="tag" href="/?tag=${encodeURIComponent(t)}">${t}</a>`).join("")}
+            ${tags.map(t=>`<a class="tag" href="/?tag=${encodeURIComponent(t)}">${escapeHtml(t)}</a>`).join("")}
           </div>
         `
       } else {
@@ -198,13 +368,13 @@
 
         const lengthOk = p.innerText.length >= 120
         const next = p.nextElementSibling
-        const notNearImage = !(next && next.tagName === "IMG")
+        const notNearMedia = !(next && (next.tagName === "IMG" || next.classList.contains("article-carousel")))
 
         const ratio = i / paragraphs.length
         const goodPosition = ratio >= 0.25
 
         // 👉 PRIMARY (best UX)
-        if(lengthOk && notNearImage && goodPosition){
+        if(lengthOk && notNearMedia && goodPosition){
 
           insertAdAfter(p)
           inserted = true
@@ -379,8 +549,6 @@
   <article class="post">
 
     <h1 id="post-title">...</h1>
-
-    <img id="post-thumb" alt="thumbnail">
 
     <div class="meta" id="post-meta"></div>
 

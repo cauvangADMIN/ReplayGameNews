@@ -102,7 +102,9 @@ return data.path
 
 /* create gallery UI */
 
-async function openGallery(handleInsert){
+async function openGallery(handleInsert, options = {}){
+
+const allowMultiple = Boolean(options.allowMultiple)
 
 const modal=document.createElement("div")
 modal.className="r2-modal"
@@ -129,17 +131,19 @@ modal.appendChild(header)
 
 const upload=document.createElement("input")
 upload.type="file"
+upload.accept="image/*"
+upload.multiple=allowMultiple
 upload.className="r2-upload"
 
 upload.onchange=async()=>{
 
-const file=upload.files[0]
+const files=Array.from(upload.files || [])
 
-if(!file) return
+if(!files.length) return
 
-const url=await uploadToR2(file)
+const urls=await Promise.all(files.map(file=>uploadToR2(file)))
 
-handleInsert(url)
+handleInsert(allowMultiple ? urls : urls[0])
 
 modal.remove()
 
@@ -190,11 +194,13 @@ name:"r2",
 
 init(){},
 
-show({handleInsert}){
+show(args){
 
 console.log("Open R2 media library")
 
-openGallery(handleInsert)
+openGallery(args.handleInsert, {
+allowMultiple: Boolean(args.allowMultiple || (args.config && args.config.multiple))
+})
 
 },
 
